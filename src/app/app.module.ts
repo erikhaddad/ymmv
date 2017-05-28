@@ -20,7 +20,8 @@ import {RouterModule} from '@angular/router';
             {path: 'segments', loadChildren: 'app/segments/segments.module#SegmentsModule'}
         ]),
         HttpModule,
-        FormsModule
+        FormsModule,
+        ServiceWorkerModule
     ],
     providers: [],
     bootstrap: [AppComponent]
@@ -38,10 +39,3 @@ export class AppModule {
         });
     }
 }
-
-/**
- RouterModule.forRoot([
-     {path: '', pathMatch: 'full', loadChildren: 'app/home/home-route.module#HomeModule'},
-     {path: 'segments', loadChildren: 'app/segments/segments-route.module#SegmentsModule'}
- ]),
- **/
