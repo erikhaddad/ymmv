@@ -1,0 +1,23 @@
+{
+  "dynamic": {
+    "group": [
+      {
+        "name": "firebase",
+        "urls": {
+          "https://ymmv-ac94d.firebaseio.com": {
+            "match": "prefix"
+          }
+        },
+        "cache": {
+          "optimizeFor": "freshness",
+          "maxAgeMs": 3600000,
+          "maxEntries": 20,
+          "strategy": "lru"
+        }
+      }
+    ]
+  },
+  "push": {
+    "showNotifications": true
+  }
+}
