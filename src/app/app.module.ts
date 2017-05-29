@@ -17,7 +17,7 @@ import {RouterModule} from '@angular/router';
         // Application routing
         RouterModule.forRoot([
             {path: '', pathMatch: 'full', loadChildren: 'app/home/home.module#HomeModule'},
-            {path: 'segments', loadChildren: 'app/segments/segments.module#SegmentsModule'}
+            {path: 'segments', loadChildren: 'app/flights/flights.module#FlightsModule'}
         ]),
         HttpModule,
         FormsModule,
@@ -29,7 +29,8 @@ import {RouterModule} from '@angular/router';
 export class AppModule {
     constructor(sw: NgServiceWorker) {
         sw.registerForPush({
-            applicationServerKey: '<YOUR-ENCRYPTION-KEY-HERE>'
+            applicationServerKey: 'AAAAXEWvP5E:APA91bGIpagExWOIMBF_Z6sQA2ktz_Y3qVOd_JuYP4fIxYIIC95tDO7pINbiFbWYprXik-' +
+                                    'QowhDwjhwXWlXg72AM87BSiiCLvh8_zp8anqNp5GXwsIGvf9EGICVn9N9GXE6PSpRRYv-S'
         }).subscribe(sub => {
             console.log(sub.toJSON());
         });

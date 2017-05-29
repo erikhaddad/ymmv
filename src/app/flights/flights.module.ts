@@ -2,18 +2,18 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 
-import {SegmentsComponent} from './segments.component';
+import {FlightsComponent} from './flights.component';
 
 @NgModule({
     declarations: [
-        SegmentsComponent
+        FlightsComponent
     ],
     imports: [
         CommonModule,
         RouterModule.forChild([
-            {path: '', pathMatch: 'full', component: SegmentsComponent}
+            {path: '', pathMatch: 'full', component: FlightsComponent}
         ])
     ]
 })
-export class SegmentsModule {
+export class FlightsModule {
 }

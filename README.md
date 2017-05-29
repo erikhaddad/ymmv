@@ -1,28 +1,183 @@
-# Ymmv
+**Getting Started**
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.6.
+Update the CLI to latest version
 
-## Development server
+```bash
+sudo npm install -g @angular/cli
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Change to parent directory and start dev server
 
-## Code scaffolding
+```bash
+ng new PROJECT_NAME --style=scss
+cd PROJECT_NAME
+ng serve --port 4200
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
+Point browser to [http://localhost:4200](http://localhost:4200) to make sure **"app works!"**
 
-## Build
+**Install Basic and UI dependencies**
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+```bash
+sudo npm install --save @angular/material hammerjs @angular/flex-layout rxjs @angular/animations \
+                        @angular/service-worker ng-pwa-tools @angular/platform-server
+```
 
-## Running unit tests
+**Enable service worker and push notifications**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+**main.ts**
 
-## Running end-to-end tests
+```javascript
+platformBrowserDynamic()
+    .bootstrapModule(AppModule)
+    .then(() => {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/worker-basic.min.js');
+        }
+    });
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+**app.module.ts**
 
-## Further help
+```javascript
+import {NgServiceWorker, ServiceWorkerModule} from '@angular/service-worker';
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+imports: [
+    BrowserModule.withServerTransition({appId: 'ymmv'}),
+    RouterModule.forRoot([...]),
+    ServiceWorkerModule,
+    …
+]
+
+export class AppModule {
+    constructor(sw: NgServiceWorker) {
+        sw.registerForPush({
+            applicationServerKey: '<YOUR-FCM-API-KEY>'
+        }).subscribe(sub => {
+            console.log(sub.toJSON());
+        });
+     
+        sw.push.subscribe(msg => {
+            console.log('got push message', msg);
+        });
+    }
+}
+```
+
+**Gotcha - add module.id to your components and set your routes**
+
+**(otherwise your manifest generation will FAIL)**
+
+```javascript
+moduleId: module.id
+```
+
+**Build the app**
+
+```bash
+ng build --prod
+```
+
+**Generate manifest**
+
+```bashh
+./node_modules/.bin/ngu-sw-manifest --module src/app/app.module.ts
+```
+
+**Create**** ngsw-manifest.json file in src folder**
+
+*Note: change "freshness" to "performance" if your app doesn't need realtime *
+```javascript
+{
+  "dynamic": {
+    "group": [
+      {
+        "name": "firebase",
+        "urls": {
+          "https://ymmv-ac94d.firebaseio.com": {
+            "match": "prefix"
+          }
+        },
+        "cache": {
+          "optimizeFor": "freshness",
+          "maxAgeMs": 3600000,
+          "maxEntries": 20,
+          "strategy": "lru"
+        }
+      }
+    ]
+  },
+  "push": {
+    "showNotifications": true
+  }
+}
+```
+
+**Generate Loading module**
+
+```bash
+ng g module Loading
+```
+
+**Generate static app shell loading route**
+*Note: make sure your <router-outlet></router-outlet> exists in app.component.html*
+
+```bash
+./node_modules/.bin/ngu-app-shell --module src/app/app.module.ts --url /loading --insert-module src/app/loading/loading.module.ts
+```
+
+**Set up firebase HTTP/2 push**
+
+```bash
+./node_modules/.bin/ngu-firebase-push --module src/app/app.module.ts
+```
+
+**Complete run.sh**
+
+Note: you may need to add permission to the file: chmod +x run.sh
+
+```bash
+#!/bin/bash
+PATH=$PATH:$(npm bin)
+
+set -x
+
+# Production build
+
+ng build --prod
+
+# Generate a new index.html with an app shell
+
+./node_modules/.bin/ngu-app-shell --module src/app/app.module.ts \
+
+                                  --url /loading \
+
+                                  --insert-module src/app/loading/loading.module.ts \
+
+                                  --out dist/index.html
+
+# Generate a SW manifest from our app
+
+./node_modules/.bin/ngu-sw-manifest --module src/app/app.module.ts \
+
+                                    --out dist/ngsw-manifest.json
+
+# Copy prebuilt worker into our site
+
+cp node_modules/@angular/service-worker/bundles/worker-basic.min.js dist/
+
+# Serve
+
+cd dist
+
+http-server
+```
+
+**References** 
+
+[https://events.google.com/io/schedule/?section=may-18&sid=5bd70da9-c3b6-4b39-85c2-a8fbe140b7f2](https://events.google.com/io/schedule/?section=may-18&sid=5bd70da9-c3b6-4b39-85c2-a8fbe140b7f2) - Google I/O 2017 session
+
+[https://goo.gl/LuPq0r](https://goo.gl/LuPq0r) - Github: alxhub/io17
+
+[https://goo.gl/i5HePC](https://goo.gl/i5HePC) - Google Developers: Debugging Service Workers
+

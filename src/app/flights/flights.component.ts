@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 
 @Component({
     selector: 'app-segments',
-    templateUrl: './segments.component.html',
-    styleUrls: ['./segments.component.scss'],
+    templateUrl: './flights.component.html',
+    styleUrls: ['./flights.component.scss'],
     moduleId: module.id
 })
-export class SegmentsComponent implements OnInit {
+export class FlightsComponent implements OnInit {
 
     constructor() {
     }
