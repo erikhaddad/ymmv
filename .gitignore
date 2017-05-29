@@ -41,3 +41,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Keys
+/functions/service-account-credentials.json
