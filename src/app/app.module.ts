@@ -5,8 +5,27 @@ import {HttpModule} from '@angular/http';
 
 import {NgServiceWorker, ServiceWorkerModule} from '@angular/service-worker';
 
+// import 'hammerjs';
+
+import {environment} from '../environments/environment';
+
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import {MaterialModule} from './material/material.module';
+
+import {AngularFireDatabaseModule} from 'angularfire2/database';
+import {AngularFireAuthModule} from 'angularfire2/auth';
+import {AngularFireModule} from 'angularfire2';
+
+import {NguiMapModule} from '@ngui/map';
+
 import {AppComponent} from './app.component';
+import {AuthModule} from './auth/auth.module';
 import {RouterModule} from '@angular/router';
+
+import {SignInModule} from './sign-in/sign-in.module';
+import {UserFlightsModule} from './user-flights/user-flights.module';
 
 @NgModule({
     declarations: [
@@ -16,21 +35,34 @@ import {RouterModule} from '@angular/router';
         BrowserModule.withServerTransition({appId: 'ymmv'}),
         // Application routing
         RouterModule.forRoot([
-            {path: '', pathMatch: 'full', loadChildren: 'app/home/home.module#HomeModule'},
-            {path: 'segments', loadChildren: 'app/flights/flights.module#FlightsModule'}
+            {path: 'home', pathMatch: 'full', loadChildren: 'app/home/home.module#HomeModule'},
+            {path: 'flights/:userId', loadChildren: 'app/user-flights/user-flights.module#UserFlightsModule'}
         ]),
         HttpModule,
         FormsModule,
-        ServiceWorkerModule
+        ServiceWorkerModule,
+        MaterialModule,
+        FlexLayoutModule,
+        BrowserAnimationsModule,
+
+        AuthModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireDatabaseModule,
+        AngularFireAuthModule,
+
+        NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=' + environment.google.apiKey}),
+
+        SignInModule,
+        UserFlightsModule
     ],
     providers: [],
     bootstrap: [AppComponent]
 })
+
 export class AppModule {
     constructor(sw: NgServiceWorker) {
         sw.registerForPush({
-            applicationServerKey: 'AAAAXEWvP5E:APA91bGIpagExWOIMBF_Z6sQA2ktz_Y3qVOd_JuYP4fIxYIIC95tDO7pINbiFbWYprXik-' +
-                                    'QowhDwjhwXWlXg72AM87BSiiCLvh8_zp8anqNp5GXwsIGvf9EGICVn9N9GXE6PSpRRYv-S'
+            applicationServerKey: environment.google.messaging
         }).subscribe(sub => {
             console.log(sub.toJSON());
         });

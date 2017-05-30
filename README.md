@@ -25,6 +25,13 @@ sudo npm install --save @angular/material hammerjs @angular/flex-layout rxjs @an
 ```
 
 
+**Install Firebase and AngularFire2 dependencies**
+
+```bash
+sudo npm install --save firebase angularfire2
+```
+
+
 **Enable service worker and push notifications**
 
 _main.ts_

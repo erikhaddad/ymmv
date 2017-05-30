@@ -1,3 +1,35 @@
-<p>
-  home works!
-</p>
+<div>
+  <div id="clouds">
+    <div class="cloud x1"></div>
+    <div class="cloud x2"></div>
+    <div class="cloud x3"></div>
+    <div class="cloud x4"></div>
+    <div class="cloud x5"></div>
+    <div class="cloud x6"></div>
+    <div class="cloud x7"></div>
+  </div>
+  <div class="planewindow" *ngIf="false"></div>
+
+  <div class="landing-interactive" fxLayout="column" fxLayoutAlign="center center">
+    <div fxFlex="40" fxLayout="column" fxLayoutAlign="center center">
+      <h1 class="landing-text">Your Mileage<br/>May Vary</h1>
+    </div>
+
+    <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+
+      <div class="welcome-text" fxLayout="column" *ngIf="currentUser != null">
+        <h2>Welcome back,</h2>
+        <h1>{{ currentUser.name }}</h1>
+
+        <a md-raised-button color="accent" [routerLink]="'/flights/'+ currentUser.id">Get Started</a>
+      </div>
+
+      <div fxLayout="column" *ngIf="currentUser == null">
+        <button md-raised-button color="accent" (click)="signInWithGoogle()">
+          <md-icon svgIcon="google"></md-icon> Login with Google
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
