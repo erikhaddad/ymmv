@@ -1,6 +1,49 @@
 {
   "rules": {
-    ".read": "auth != null",
-    ".write": "auth != null"
+    "airlines": {
+      ".read": true,
+      ".write": "auth != null",
+      ".indexOn": ["iata"]
+    },
+    "airports": {
+      ".read": true,
+      ".write": "auth != null",
+      ".indexOn": ["code"]
+    },
+    "countries": {
+      ".read": true,
+      ".write": "auth != null",
+      ".indexOn": ["code"]
+    },
+    "fares": {
+      ".read": true,
+      ".write": "auth != null"
+    },
+    "loyalty": {
+      ".read": true,
+      ".write": "auth != null"
+    },
+    "meals": {
+      ".read": true,
+      ".write": "auth != null"
+    },
+    "user-flights": {
+      "$userId": {
+        ".read": "auth != null && auth.uid == $userId",
+        ".write": "auth != null && auth.uid == $userId"
+      }
+    },
+    "user-stats": {
+      "$userId": {
+        ".read": "auth != null && auth.uid == $userId",
+        ".write": "auth != null && auth.uid == $userId"
+      }
+    },
+    "users": {
+      "$userId": {
+        ".read": "auth != null && auth.uid == $userId",
+        ".write": "auth != null && auth.uid == $userId"
+      }
+    }
   }
 }

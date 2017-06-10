@@ -1,0 +1,250 @@
+/*--------------------
+Boarding Pass
+--------------------*/
+
+.boarding-pass {
+  * {
+    box-sizing: border-box;
+    &::before, &::after {
+      box-sizing: border-box;
+    }
+  }
+  position: relative;
+  /*
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  */
+  width: 350px;
+  height: 382px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  .box small {
+    display: block;
+    font-size: 11px;
+    color: #A2A9B3;
+    margin-bottom: 2px;
+  }
+  strong {
+    font-size: 13px;
+    display: block;
+  }
+  header {
+    /*
+    background: -webkit-linear-gradient(top, #36475f, #2c394f);
+    background: linear-gradient(to bottom, #36475f, #2c394f);
+    */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.46));
+    padding: 12px 20px;
+    height: 53px;
+    color: #fff;
+    &.airline-UA {
+      /*
+      background: linear-gradient(to bottom, rgba(0,0,0,.34), rgba(0,0,0,.46));
+      */
+      background: #cfcfcf;
+      color: #005daa;
+    }
+    &.airline-LH {
+      background: #000066;
+      color: #ffb300;
+    }
+    &.airline-TG {
+      background: #cfcfcf;
+      color: #410049;
+    }
+    &.airline-SL {
+      background: #cfcfcf;
+      color: #153d8a;
+    }
+    &.airline-WY {
+      background: #4a4f56;
+      color: #b99757;
+    }
+    &.airline-EK {
+      background: #c00;
+      color: #dfba11;
+    }
+    &.airline-AK {
+      background: #cfcfcf;
+      color: #f20000;
+    }
+    &.airline-OZ {
+      background: #cfcfcf;
+      color: #005daa;
+    }
+    .logo {
+      float: left;
+      width: 104px;
+      height: 31px;
+    }
+    &.airline-DL .logo {
+      height: 20px;
+      width: auto;
+      margin-top: 5px;
+    }
+    .flight {
+      float: right;
+      /*color: #fff;*/
+      text-align: right;
+      small {
+        display: block;
+        font-size: 8px;
+        margin-bottom: 2px;
+        opacity: 0.8;
+        /*color: #FFF;*/
+      }
+      strong {
+        font-size: 18px;
+      }
+    }
+  }
+  .cities {
+    position: relative;
+    &::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+    .city {
+      padding: 20px 18px;
+      float: left;
+      &:nth-child(2) {
+        float: right;
+      }
+      strong {
+        font-size: 40px;
+        font-weight: 300;
+        line-height: 1;
+      }
+      small {
+        margin-bottom: 0;
+        margin-left: 3px;
+        color: rgba(0, 0, 0, 0.54);
+      }
+    }
+    .airplane {
+      position: absolute;
+      width: 30px;
+      height: 25px;
+      top: 57%;
+      left: 30%;
+      opacity: 0;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      -webkit-animation: move 3s infinite;
+      animation: move 3s infinite;
+    }
+  }
+  .infos {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    border-top: 1px solid #99D298;
+    .places, .times {
+      width: 50%;
+      padding: 10px 0;
+    }
+    .places::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+    .times {
+      &::after {
+        content: '';
+        display: table;
+        clear: both;
+      }
+      strong {
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+        -webkit-transform-origin: left bottom;
+        transform-origin: left bottom;
+      }
+    }
+    .places {
+      background: #ECECEC;
+      border-right: 1px solid #99D298;
+      small {
+        color: #97A1AD;
+      }
+      strong {
+        color: #239422;
+      }
+    }
+    .box {
+      padding: 10px 20px 10px;
+      width: 47%;
+      float: left;
+      small {
+        font-size: 10px;
+      }
+    }
+  }
+  .strap {
+    clear: both;
+    position: relative;
+    border-top: 1px solid #99D298;
+    &::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+    .box {
+      padding: 23px 0 20px 20px;
+      div {
+        margin-bottom: 15px;
+        small {
+          font-size: 10px;
+        }
+        strong {
+          font-size: 13px;
+        }
+      }
+      sup {
+        font-size: 8px;
+        position: relative;
+        top: -5px;
+      }
+    }
+    .qrcode {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 80px;
+      height: 80px;
+    }
+  }
+}
+
+@-webkit-keyframes move {
+  40% {
+    left: 50%;
+    opacity: 1;
+  }
+
+  100% {
+    left: 70%;
+    opacity: 0;
+  }
+}
+
+
+@keyframes move {
+  40% {
+    left: 50%;
+    opacity: 1;
+  }
+
+  100% {
+    left: 70%;
+    opacity: 0;
+  }
+}

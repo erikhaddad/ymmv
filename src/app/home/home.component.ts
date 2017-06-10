@@ -13,19 +13,19 @@ import {Router} from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-    currentUser$: FirebaseObjectObservable<IUser>;
-    currentUser: IUser|null;
+    authUser$: FirebaseObjectObservable<IUser>;
+    authUser: IUser|null;
 
     constructor(public authService: AuthService,
                 public dataService: DataService,
                 private router: Router) {
 
-        this.currentUser = null;
+        this.authUser = null;
         authService.authState$.subscribe(authUser => {
             if (authUser != null) {
-                this.currentUser$ = dataService.getUser(authUser.uid);
-                this.currentUser$.subscribe(user => {
-                    this.currentUser = user;
+                this.authUser$ = dataService.getUser(authUser.uid);
+                this.authUser$.subscribe(user => {
+                    this.authUser = user;
                 });
             }
         });

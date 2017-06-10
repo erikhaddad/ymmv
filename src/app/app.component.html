@@ -1,3 +1,24 @@
-<div class="content">
-  <router-outlet></router-outlet>
+<div class="app-toolbar-container">
+  <md-toolbar class="mat-elevation-z6" color="primary">
+    <div class="lockup">
+      <a href="/">
+        <md-icon class="lockup-logo">local_airport</md-icon>
+        <span class="lockup-text">
+            <span class="lockup-brand lockup-brand-sm">YMMV</span>
+            <span class="lockup-brand lockup-brand-lg">Your Mileage May Vary</span>
+        </span>
+      </a>
+    </div>
+    <span fxFlex></span>
+    <div class="account" *ngIf="authUser != null">
+      <button md-icon-button class="logged-in-user-button">
+        <img class="logged-in-user-avatar" [src]="authUser.avatar" />
+      </button>
+    </div>
+  </md-toolbar>
 </div>
+<md-sidenav-container class="app-sidenav-container">
+  <div class="app-content">
+    <router-outlet></router-outlet>
+  </div>
+</md-sidenav-container>

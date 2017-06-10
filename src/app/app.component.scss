@@ -1,0 +1,88 @@
+.app-sidenav-container {
+  height: calc(100% - 64px);
+
+  .app-content {
+    height: 100%;
+  }
+
+  .app-action {
+    display: inline-block;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+  }
+}
+
+
+
+.lockup {
+  a,
+  a:hover,
+  a:visited,
+  a:active,
+  a:link {
+    text-decoration: none;
+    color: rgba(255,255,255,1);
+  }
+
+  .lockup-logo {
+    margin-right: 12px;
+  }
+
+  .lockup-text {
+    font-family: 'Leckerli One', cursive;
+
+    .lockup-brand-lg {
+      display: none;
+    }
+    .lockup-brand-sm {
+      display: inline-block;
+    }
+  }
+}
+
+.mat-icon-button.logged-in-user-button {
+  /*
+  height: 48px;
+  width: 48px;
+  min-width: 48px;
+  margin: 0;
+  padding: 0;
+  */
+
+  .logged-in-user-avatar {
+    margin: auto;
+    background-repeat: no-repeat no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,1);
+    box-sizing: border-box;
+    background-color: lightblue;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .app-sidenav-container {
+    height: calc(100% - 56px);
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .lockup:not(.hide-lockup-logo) .lockup-logo {
+    display: inline-block;
+  }
+}
+
+/** Angular-Material: layout-gt-xs **/
+@media only screen and (min-width: 480px) {
+  .lockup .lockup-text .lockup-brand-lg {
+    display: inline-block;
+  }
+  .lockup-menu, .lockup .lockup-text .lockup-brand-sm {
+    display: none;
+  }
+}

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {DataService} from '../common/data.service';
 import {FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database';
 import {Flight, IAirline, IAirport, IFlight, IUser} from '../common/data-model';
@@ -6,21 +6,30 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
 
 import * as _ from 'lodash';
-import * as moment from 'moment';
 
 @Component({
     selector: 'app-user-flights',
     templateUrl: './user-flights.component.html',
     styleUrls: ['./user-flights.component.scss'],
+    encapsulation: ViewEncapsulation.None,
     moduleId: module.id
 })
 export class UserFlightsComponent implements OnInit {
 
-    userId: string;
     paramSubscription: any;
+    userId: string;
+    user$: FirebaseObjectObservable<IUser>;
+    user: IUser;
 
-    currentUser$: FirebaseObjectObservable<IUser>;
-    currentUser: IUser;
+    authUserId: string;
+    authUser$: FirebaseObjectObservable<IUser>;
+    authUser: IUser;
+
+    airlines$: FirebaseListObservable<IAirline[]>;
+    airlines: IAirline[];
+
+    airports$: FirebaseListObservable<IAirport[]>;
+    airports: IAirport[];
 
     newFlight: Flight;
 
@@ -43,10 +52,21 @@ export class UserFlightsComponent implements OnInit {
         this.userFlights = [];
         this.newFlight = new Flight();
 
+        this.airports$ = dataService.airports;
+        this.airports$.subscribe(airports => {
+            this.airports = airports;
+        });
+        this.airlines$ = dataService.airlines;
+        this.airlines$.subscribe(airlines => {
+            this.airlines = airlines;
+        });
+
         authService.authState$.subscribe(authUser => {
-            this.currentUser$ = dataService.getUser(authUser.uid);
-            this.currentUser$.subscribe(user => {
-                this.currentUser = user;
+            this.authUserId = authUser.uid;
+
+            this.authUser$ = dataService.getUser(this.authUserId);
+            this.authUser$.subscribe(user => {
+                this.authUser = user;
             });
         });
     }
@@ -55,7 +75,10 @@ export class UserFlightsComponent implements OnInit {
         this.paramSubscription = this.route.params.subscribe(params => {
             this.userId = params['userId'];
 
-            this.currentUser$ = this.dataService.getUser(this.userId);
+            this.user$ = this.dataService.getUser(this.userId);
+            this.user$.subscribe(user => {
+                this.user = user;
+            });
 
             if (typeof this.userId !== 'undefined') {
                 this.userFlights$ = this.dataService.getUserFlights(this.userId);
@@ -69,6 +92,8 @@ export class UserFlightsComponent implements OnInit {
                         this.userFlights = [];
                     }
                     console.log('user flights', this.userFlights);
+
+
                 });
             } else {
                 this.router.navigate(['/home']);
@@ -98,26 +123,13 @@ export class UserFlightsComponent implements OnInit {
 
     }
 
-    getAirportByCode (code:string): IAirport {
-        return this.dataService.getAirportByCode(code);
+    getAirportByCode(code: string): IAirport {
+        return _.find(this.airports, {'code': code});
     }
 
-    getAirlineByCode (code): IAirline {
-        return this.dataService.getAirlineByCode(code);
+    getAirlineByCode(code: string): IAirline {
+        return _.find(this.airlines, {'iata': code});
     }
-
-    getFormattedDate (datetime) {
-        return moment(datetime).format('ddd, D MMM YYYY');
-    }
-
-    getFormattedTime (datetime) {
-        return moment(datetime).format('HH:mm');
-    }
-
-    getUserProfile () {
-        return this.dataService.getUser(this.userId);
-    }
-
 
     private toRadians(coord) {
         return coord * Math.PI / 180;
@@ -133,8 +145,8 @@ export class UserFlightsComponent implements OnInit {
     }
 
     private calculateSegmentMiles (origin, destination) {
-        const originObj = this.dataService.getAirportByCode(origin),
-            destinationObj = this.dataService.getAirportByCode(destination);
+        const originObj = this.getAirportByCode(origin),
+            destinationObj = this.getAirportByCode(destination);
 
         let estimation = null;
         if (!!originObj && !!destinationObj) {

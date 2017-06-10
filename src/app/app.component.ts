@@ -1,17 +1,37 @@
-import {Component} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {MdIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
+import {FirebaseObjectObservable} from 'angularfire2/database';
+import {IUser} from './common/data-model';
+import {AuthService} from './auth/auth.service';
+import {DataService} from './common/data.service';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
+    encapsulation: ViewEncapsulation.None,
     moduleId: module.id
 })
 export class AppComponent {
 
-    constructor(iconRegistry: MdIconRegistry,
+    authUser$: FirebaseObjectObservable<IUser>;
+    authUser: IUser|null;
+
+    constructor(public authService: AuthService,
+                public dataService: DataService,
+                iconRegistry: MdIconRegistry,
                 sanitizer: DomSanitizer) {
+
+        this.authUser = null;
+        authService.authState$.subscribe(authUser => {
+            if (authUser != null) {
+                this.authUser$ = dataService.getUser(authUser.uid);
+                this.authUser$.subscribe(user => {
+                    this.authUser = user;
+                });
+            }
+        });
 
         iconRegistry.addSvgIcon(
             'google',

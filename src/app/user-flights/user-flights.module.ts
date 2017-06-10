@@ -9,10 +9,13 @@ import {AuthGuard} from '../auth/auth.guard';
 import {DataService} from '../common/data.service';
 import {MaterialModule} from '../material/material.module';
 import {NguiMapModule} from '@ngui/map';
+import {BoardingPassComponent} from '../boarding-pass/boarding-pass.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
     declarations: [
-        UserFlightsComponent
+        UserFlightsComponent,
+        BoardingPassComponent
     ],
     imports: [
         CommonModule,
@@ -20,6 +23,7 @@ import {NguiMapModule} from '@ngui/map';
             {path: 'flights/:userId', component: UserFlightsComponent, canActivate: [AuthGuard]},
             {path: '', redirectTo: '/home', pathMatch: 'full'}
         ]),
+        FlexLayoutModule,
         MaterialModule,
         NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=' + environment.google.apiKey})
     ],
@@ -27,5 +31,4 @@ import {NguiMapModule} from '@ngui/map';
         DataService
     ]
 })
-export class UserFlightsModule {
-}
+export class UserFlightsModule { }

@@ -17,14 +17,19 @@
 
     <div fxFlex fxLayout="row" fxLayoutAlign="center center">
 
-      <div class="welcome-text" fxLayout="column" *ngIf="currentUser != null">
+      <div class="welcome-text" fxLayout="column" *ngIf="authUser != null">
         <h2>Welcome back,</h2>
-        <h1>{{ currentUser.name }}</h1>
-
-        <a md-raised-button color="accent" [routerLink]="'/flights/'+ currentUser.id">Get Started</a>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <img class="user-avatar" [src]="authUser.avatar" />
+          <h1 class="user-name">{{ authUser.name }}</h1>
+        </div>
+        <div class="welcome-action" fxLayout="row" fxLayoutAlign="center center">
+          <a md-raised-button color="accent"
+             [routerLink]="'/flights/'+ authUser.id">Get Started</a>
+        </div>
       </div>
 
-      <div fxLayout="column" *ngIf="currentUser == null">
+      <div fxLayout="column" *ngIf="authUser == null">
         <button md-raised-button color="accent" (click)="signInWithGoogle()">
           <md-icon svgIcon="google"></md-icon> Login with Google
         </button>

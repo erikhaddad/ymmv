@@ -13,6 +13,7 @@ export interface IAirport {
     $key?: string;
 
     id: string;
+    code: string;
     name: string;
     latitude: string;
     longitude: string;
@@ -26,8 +27,8 @@ export interface IAirport {
     pseudonyms: string;
 }
 export class Airport implements IAirport {
-    iata: string;
     id: string;
+    code: string;
     name: string;
     latitude: string;
     longitude: string;
@@ -41,10 +42,6 @@ export class Airport implements IAirport {
     pseudonyms: string;
 }
 
-export interface IAirportLite {
-    code: string;
-    datetime: string;
-}
 
 export interface ICountry {
     $key?: string;
@@ -74,6 +71,11 @@ export class Fare implements IFare {
     order: string;
     pqm: string;
     pqs: string;
+}
+
+export interface IAirportLite {
+    airport: string;
+    datetime: string;
 }
 
 export interface IFlight {
@@ -156,4 +158,15 @@ export interface INotification {
 }
 export class Notification implements INotification {
     fromUserId: string;
+}
+
+export interface IUserStatsTotals {
+    airlines: number;
+    airports: number;
+    cost: number;
+    days: number;
+    domestic: number;
+    international: number;
+    miles: number;
+    flights: number;
 }

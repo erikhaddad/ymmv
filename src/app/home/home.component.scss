@@ -49,11 +49,24 @@
     font-weight: 300;
     text-align: center;
   }
-  h1 {
+
+  .user-avatar {
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    border: 4px solid rgba(0,0,0,.14);
+    margin-right: 12px;
+    box-sizing: border-box;
+  }
+  .user-name {
     font-size: 48px;
   }
-  .md-button {
-    margin-top: 64px;
+}
+.welcome-action {
+  margin-top: 32px;
+
+  .mat-raised-button {
+    text-transform: uppercase;
   }
 }
 

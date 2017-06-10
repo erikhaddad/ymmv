@@ -59,6 +59,7 @@ export class DataService {
         return this.afd.list(`${this.userFlightsPath}/${id}`);
     }
 
+    /*
     getAirlineByCode(code: string): any {
         return this.afd.object(`${this.airlinesPath}/${code}`).take(1);
     }
@@ -66,12 +67,13 @@ export class DataService {
     getAirportByCode(code: string): any {
         return this.afd.object(`${this.airportsPath}/${code}`).take(1);
     }
+    */
 
     /** USERS **/
     createUser(user: User): firebase.Promise<any> {
         return this.afd.list(this.usersPath).push(user);
     }
-    getUser(userId: string): FirebaseObjectObservable<any> {
+    getUser(userId: string): FirebaseObjectObservable<IUser> {
         return this.afd.object(this.usersPath + '/' + userId);
     }
     removeUser(user: IUser): firebase.Promise<any> {
