@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {DataService} from '../common/data.service';
 import {FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database';
-import {Flight, IAirline, IAirport, IFlight, IUser} from '../common/data-model';
+import {Airport, Flight, IAirline, IAirport, IFlight, IUser} from '../common/data-model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
 
@@ -31,8 +31,6 @@ export class UserFlightsComponent implements OnInit {
     airports$: FirebaseListObservable<IAirport[]>;
     airports: IAirport[];
 
-    newFlight: Flight;
-
     userFlights$: FirebaseListObservable<IFlight[]>;
     userFlights: IFlight[];
 
@@ -40,9 +38,12 @@ export class UserFlightsComponent implements OnInit {
 
     mapConfig = {
         type: 'roadmap', // roadmap, satellite, hybrid, terrain
-        zoom: 1,
-        center: '37.775, -122.434'
+        zoom: 2,
+        center: '37.775, -122.434',
+        markers: [], // array of models to display
+        polylines: [], // array of lines to display
     };
+
 
     constructor(public dataService: DataService,
                 public authService: AuthService,
@@ -50,7 +51,6 @@ export class UserFlightsComponent implements OnInit {
                 private route: ActivatedRoute) {
 
         this.userFlights = [];
-        this.newFlight = new Flight();
 
         this.airports$ = dataService.airports;
         this.airports$.subscribe(airports => {
@@ -87,13 +87,17 @@ export class UserFlightsComponent implements OnInit {
                     console.log('returned flights', flights);
 
                     if (flights) {
-                        this.userFlights = _.orderBy(flights, 'timestamp', 'asc');
+                        // this.userFlights = _.orderBy(flights, 'timestamp', 'asc');
+
+                        this.userFlights = _.orderBy(flights, function (flight) {
+                            return flight.departure.datetime;
+                        });
                     } else {
                         this.userFlights = [];
                     }
                     console.log('user flights', this.userFlights);
 
-
+                    this.populateMap();
                 });
             } else {
                 this.router.navigate(['/home']);
@@ -160,19 +164,102 @@ export class UserFlightsComponent implements OnInit {
 
 
     onMapReady(map) {
+        /*
         this.addRandomMarkers();
 
         console.log('map', map);
         console.log('markers', map.markers);  // to get all markers as an array
+        */
     }
     onIdle(event) {
-        console.log('map', event.target);
+        // console.log('map', event.target);
     }
     onMarkerInit(marker) {
-        console.log('marker', marker);
+        // console.log('marker', marker);
+    }
+    onPolylineInit(polyline) {
+        // console.log('polyline', polyline);
     }
     onMapClick(event) {
-        this.positions.push(event.latLng);
+        // this.positions.push(event.latLng);
         event.target.panTo(event.latLng);
+    }
+    populateMap() {
+        const that = this;
+        _.forEach(this.userFlights, function (flight, key) {
+            // console.log(flight);
+
+            const airportOrigin = that.getAirportByCode(flight.departure.airport),
+                airportDestination = that.getAirportByCode(flight.arrival.airport);
+
+            // console.log(airportOrigin);
+            if (airportOrigin != null) {
+                const originLatitude = Number.parseFloat(airportOrigin.latitude),
+                    originLongitude = Number.parseFloat(airportOrigin.longitude);
+
+                that.mapConfig.markers.push(
+                    {
+                        id: key + '-origin',
+                        position: {
+                            lat: originLatitude,
+                            lng: originLongitude
+                        },
+                        showWindow: false,
+                        title: airportOrigin.city + ', ' + airportOrigin.country,
+                        animation: 0
+                    }
+                );
+            }
+
+            if (airportDestination != null) {
+                const destinationLatitude = Number.parseFloat(airportDestination.latitude),
+                    destinationLongitude = Number.parseFloat(airportDestination.longitude);
+
+                that.mapConfig.markers.push(
+                    {
+                        id: key + '-destination',
+                        position: {
+                            lat: destinationLatitude,
+                            lng: destinationLongitude
+                        },
+                        showWindow: false,
+                        title: airportDestination.city + ', ' + airportDestination.country,
+                        animation: 0
+                    }
+                );
+            }
+
+            if (airportOrigin != null && airportDestination != null) {
+                const originLatitude = Number.parseFloat(airportOrigin.latitude),
+                    originLongitude = Number.parseFloat(airportOrigin.longitude),
+                    destinationLatitude = Number.parseFloat(airportDestination.latitude),
+                    destinationLongitude = Number.parseFloat(airportDestination.longitude);
+
+                that.mapConfig.polylines.push(
+                    {
+                        id: key + '-path',
+                        paths: [
+                            {
+                                lat: originLatitude,
+                                lng: originLongitude
+                            },
+                            {
+                                lat: destinationLatitude,
+                                lng: destinationLongitude
+                            }
+                        ],
+                        stroke: {
+                            // color: "#039be5",
+                            color: '#ffab40',
+                            opacity: 0.5,
+                            weight: 2
+                        },
+                        editable: false,
+                        geodesic: true,
+                        visible: true
+                    }
+                );
+            }
+        });
     }
 }

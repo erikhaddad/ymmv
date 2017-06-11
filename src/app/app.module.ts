@@ -26,10 +26,12 @@ import {RouterModule} from '@angular/router';
 
 import {SignInModule} from './sign-in/sign-in.module';
 import {UserFlightsModule} from './user-flights/user-flights.module';
+import { SetFlightComponent } from './set-flight/set-flight.component';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        SetFlightComponent
     ],
     imports: [
         BrowserModule.withServerTransition({appId: 'ymmv'}),

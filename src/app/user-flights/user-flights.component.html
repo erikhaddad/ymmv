@@ -28,9 +28,22 @@
         (mapClick)="onMapClick($event)"
         (idle)="onIdle($event)"
         [mapTypeId]="mapConfig.type">
-      <marker *ngFor="let pos of positions"
-              [position]="pos"
+
+      <marker *ngFor="let marker of mapConfig.markers"
+              [position]="marker.position"
+              [title]="marker.title"
+              [animation]="marker.animation"
               (initialized$)="onMarkerInit($event)"></marker>
+
+      <polyline *ngFor="let polyline of mapConfig.polylines"
+                [path]="polyline.paths"
+                [strokeColor]="polyline.stroke.color"
+                [strokeOpacity]="polyline.stroke.opacity"
+                [strokeWeight]="polyline.stroke.weight"
+                [visible]="polyline.visible"
+                [geodesic]="polyline.geodesic"
+                [editable]="polyline.editable"
+                (initialized$)="onPolylineInit($event)"></polyline>
     </ngui-map>
   </section>
 
