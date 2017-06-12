@@ -5,14 +5,28 @@
     height: 100%;
   }
 
-  .app-action {
-    display: inline-block;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
+  md-sidenav {
+    width: 248px;
+
+    .mat-nav-list {
+      .mat-list-item {
+        .mat-list-icon {
+          color: rgba(0, 0, 0, .54);
+        }
+        .mat-list-text {
+          color: rgba(0, 0, 0, .87);
+        }
+      }
+    }
   }
 }
 
+.app-action {
+  display: inline-block;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
 
 
 .lockup {

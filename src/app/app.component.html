@@ -1,7 +1,7 @@
 <div class="app-toolbar-container">
   <md-toolbar class="mat-elevation-z6" color="primary">
     <div class="lockup">
-      <a href="/" fxLayout="row" fxLayoutAlign="center center">
+      <a href="/" fxLayout="row" fxLayoutAlign="start center">
         <md-icon class="lockup-logo">local_airport</md-icon>
         <span class="lockup-text">
             <span class="lockup-brand lockup-brand-sm">YMMV</span>
@@ -17,8 +17,31 @@
     </div>
   </md-toolbar>
 </div>
+
 <md-sidenav-container class="app-sidenav-container">
+  <md-sidenav #pages class="app-sidenav" mode="side" [opened]="true" fxLayout="column">
+    <md-nav-list fxFlex *ngIf="authUser">
+      <a md-list-item
+         *ngFor="let navItem of navItems"
+         [routerLink]="['/flights', authUser.id, navItem.id]"
+         [class.active]="navItem.id == currentPage">
+        <md-icon md-list-icon>{{ navItem.icon }}</md-icon>
+        <h3 md-line>{{ navItem.title }}</h3>
+      </a>
+    </md-nav-list>
+  </md-sidenav>
+
   <div class="app-content">
     <router-outlet></router-outlet>
   </div>
+
+  <md-sidenav #details align="end" mode="side" opened="false">
+
+  </md-sidenav>
 </md-sidenav-container>
+
+<span class="app-action">
+  <button class="app-fab-button" md-fab>
+    <md-icon>add</md-icon>
+  </button>
+</span>

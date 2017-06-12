@@ -1,20 +1,19 @@
 import {Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {IAirport, Flight} from '../common/data-model';
+
+import {IAirport} from '../common/data-model';
 
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 
 @Component({
-    selector: 'app-set-flight',
-    templateUrl: './set-flight.component.html',
-    styleUrls: ['./set-flight.component.scss'],
+    selector: 'app-mileage-calculator',
+    templateUrl: './mileage-calculator.component.html',
+    styleUrls: ['./mileage-calculator.component.scss'],
     encapsulation: ViewEncapsulation.Emulated,
     changeDetection: ChangeDetectionStrategy.Default
 })
-export class SetFlightComponent implements OnInit {
-
-    thisFlight: Flight;
+export class MileageCalculatorComponent implements OnInit {
 
     selectedOriginAirportCode: string;
     selectedOriginAirportArr: string[];
@@ -32,8 +31,15 @@ export class SetFlightComponent implements OnInit {
     selectedAirlineObj: IAirport;
     selectedAirlineHelperText: string;
 
-    seatClasses: string[];
-    purposes: string[];
+    calculatedMiles: number;
+
+    mapConfig = {
+        type: 'roadmap', // roadmap, satellite, hybrid, terrain
+        zoom: 2,
+        center: '37.775, -122.434',
+        markers: [], // array of models to display
+        polylines: [] // array of lines to display
+    };
 
 
     stateCtrl: FormControl;
@@ -93,8 +99,6 @@ export class SetFlightComponent implements OnInit {
     ];
 
     constructor() {
-        this.thisFlight = new Flight();
-
         this.selectedOriginAirportCode = '';
         this.selectedOriginAirportArr = [null, null, null];
         this.selectedOriginAirportObj = null;
@@ -111,8 +115,7 @@ export class SetFlightComponent implements OnInit {
         this.selectedAirlineObj = null;
         this.selectedAirlineHelperText = 'Airline and flight number';
 
-        this.seatClasses = ['First', 'Business', 'Premium', 'Economy'];
-        this.purposes = ['Business', 'Pleasure', 'Mixed'];
+        this.calculatedMiles = 0;
 
         this.stateCtrl = new FormControl();
         this.filteredStates = this.stateCtrl.valueChanges

@@ -5,7 +5,7 @@ import {HttpModule} from '@angular/http';
 
 import {NgServiceWorker, ServiceWorkerModule} from '@angular/service-worker';
 
-// import 'hammerjs';
+import 'hammerjs';
 
 import {environment} from '../environments/environment';
 
@@ -26,18 +26,18 @@ import {RouterModule} from '@angular/router';
 
 import {SignInModule} from './sign-in/sign-in.module';
 import {UserFlightsModule} from './user-flights/user-flights.module';
-import { SetFlightComponent } from './set-flight/set-flight.component';
+import {MileageCalculatorModule} from './mileage-calculator/mileage-calculator.module';
 
 @NgModule({
     declarations: [
-        AppComponent,
-        SetFlightComponent
+        AppComponent
     ],
     imports: [
         BrowserModule.withServerTransition({appId: 'ymmv'}),
         // Application routing
         RouterModule.forRoot([
             {path: 'home', pathMatch: 'full', loadChildren: 'app/home/home.module#HomeModule'},
+            {path: 'mileage-calculator', loadChildren: 'app/mileage-calculator/mileage-calculator.module#MileageCalculatorModule'},
             {path: 'flights/:userId', loadChildren: 'app/user-flights/user-flights.module#UserFlightsModule'}
         ]),
         HttpModule,
@@ -55,7 +55,8 @@ import { SetFlightComponent } from './set-flight/set-flight.component';
         NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=' + environment.google.apiKey}),
 
         SignInModule,
-        UserFlightsModule
+        UserFlightsModule,
+        MileageCalculatorModule
     ],
     providers: [],
     bootstrap: [AppComponent]

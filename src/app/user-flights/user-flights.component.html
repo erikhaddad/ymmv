@@ -1,25 +1,4 @@
 <main class="flights-content">
-  <!--
-  <ngui-map center="vm.map.center" zoom="vm.map.zoom" draggable="true" options="vm.map.options">
-
-    <ui-gmap-markers models="vm.map.markers" coords="'self'" icon="'icon'" click="onMarkerClicked" fit="true"
-                     doCluster="false" clusterOptions="standard">
-      <ui-gmap-windows show="'showWindow'" closeClick="'closeClick'" ng-cloak>
-        <div>
-          <p ng-non-bindable>{{ title }}</p>
-
-          <p ng-non-bindable>Latitude: {{ latitude | number: 4 }}</p>
-          <p ng-non-bindable>Longitude: {{ longitude | number: 4 }}</p>
-        </div>
-      </ui-gmap-windows>
-    </ui-gmap-markers>
-
-    <ui-gmap-polylines models="vm.map.polylines" path="'path'" stroke="'stroke'" visible="'visible'"
-                       geodesic="'geodesic'" editable="'editable'" draggable="'draggable'" static="true">
-    </ui-gmap-polylines>
-  </ngui-map>
-  -->
-
   <section>
     <ngui-map
         [zoom]="mapConfig.zoom"

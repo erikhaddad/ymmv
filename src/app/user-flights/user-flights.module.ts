@@ -10,19 +10,36 @@ import {DataService} from '../common/data.service';
 import {MaterialModule} from '../material/material.module';
 import {NguiMapModule} from '@ngui/map';
 import {BoardingPassComponent} from '../boarding-pass/boarding-pass.component';
+import {UserFlightsMapComponent} from '../user-flights-map/user-flights-map.component';
+import {UserFlightsStatsComponent} from '../user-flights-stats/user-flights-stats.component';
+import {UserFlightsTableComponent} from '../user-flights-table/user-flights-table.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {UserFlightsBoardingPassesComponent} from '../user-flights-boarding-passes/user-flights-boarding-passes.component';
+import {SetFlightComponent} from '../set-flight/set-flight.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
     declarations: [
+        BoardingPassComponent,
+        SetFlightComponent,
         UserFlightsComponent,
-        BoardingPassComponent
+        UserFlightsBoardingPassesComponent,
+        UserFlightsMapComponent,
+        UserFlightsStatsComponent,
+        UserFlightsTableComponent
     ],
     imports: [
         CommonModule,
         RouterModule.forChild([
             {path: 'flights/:userId', component: UserFlightsComponent, canActivate: [AuthGuard]},
+            {path: 'flights/:userId/boarding-passes', component: UserFlightsBoardingPassesComponent, canActivate: [AuthGuard]},
+            {path: 'flights/:userId/map', component: UserFlightsMapComponent, canActivate: [AuthGuard]},
+            {path: 'flights/:userId/stats', component: UserFlightsStatsComponent, canActivate: [AuthGuard]},
+            {path: 'flights/:userId/table', component: UserFlightsTableComponent, canActivate: [AuthGuard]},
             {path: '', redirectTo: '/home', pathMatch: 'full'}
         ]),
+        FormsModule,
+        ReactiveFormsModule,
         FlexLayoutModule,
         MaterialModule,
         NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=' + environment.google.apiKey})
@@ -31,4 +48,5 @@ import {FlexLayoutModule} from '@angular/flex-layout';
         DataService
     ]
 })
-export class UserFlightsModule { }
+export class UserFlightsModule {
+}

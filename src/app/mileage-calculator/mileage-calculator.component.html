@@ -1,0 +1,64 @@
+<main class="mileage-content">
+  <section>
+    <!-- ORIGIN-->
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <md-icon>place</md-icon>
+
+      <md-input-container>
+        <input mdInput placeholder="State" [mdAutocomplete]="auto" [formControl]="stateCtrl">
+      </md-input-container>
+
+      <md-autocomplete #auto="mdAutocomplete">
+        <md-option *ngFor="let state of filteredStates | async" [value]="state">
+          {{ state }}
+        </md-option>
+      </md-autocomplete>
+    </div>
+
+    <!-- DESTINATION -->
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <md-icon>place</md-icon>
+
+      <md-input-container>
+        <input mdInput placeholder="State" [mdAutocomplete]="auto" [formControl]="stateCtrl">
+      </md-input-container>
+
+      <md-autocomplete #auto="mdAutocomplete">
+        <md-option *ngFor="let state of filteredStates | async" [value]="state">
+          {{ state }}
+        </md-option>
+      </md-autocomplete>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <h1>{{ calculatedMiles }}</h1>
+    </div>
+  </section>
+
+  <section>
+    <ngui-map
+        [zoom]="mapConfig.zoom"
+        [center]="mapConfig.center"
+        (mapReady$)="onMapReady($event)"
+        (mapClick)="onMapClick($event)"
+        (idle)="onIdle($event)"
+        [mapTypeId]="mapConfig.type">
+
+      <marker *ngFor="let marker of mapConfig.markers"
+              [position]="marker.position"
+              [title]="marker.title"
+              [animation]="marker.animation"
+              (initialized$)="onMarkerInit($event)"></marker>
+
+      <polyline *ngFor="let polyline of mapConfig.polylines"
+                [path]="polyline.paths"
+                [strokeColor]="polyline.stroke.color"
+                [strokeOpacity]="polyline.stroke.opacity"
+                [strokeWeight]="polyline.stroke.weight"
+                [visible]="polyline.visible"
+                [geodesic]="polyline.geodesic"
+                [editable]="polyline.editable"
+                (initialized$)="onPolylineInit($event)"></polyline>
+    </ngui-map>
+  </section>
+</main>

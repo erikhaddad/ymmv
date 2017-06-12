@@ -18,10 +18,42 @@ export class AppComponent {
     authUser$: FirebaseObjectObservable<IUser>;
     authUser: IUser|null;
 
+    currentPage: string;
+
+    navItems = [
+        {
+            id: 'stats',
+            title: 'Stats',
+            icon: 'bar_chart'
+        },
+        {
+            id: 'map',
+            title: 'Map',
+            icon: 'map'
+        },
+        {
+            id: 'passes',
+            title: 'Passes',
+            icon: 'receipt'
+        },
+        {
+            id: 'table',
+            title: 'Table',
+            icon: 'table_chart'
+        },
+        {
+            id: 'calculator',
+            title: 'Calculator',
+            icon: 'functions'
+        }
+    ];
+
     constructor(public authService: AuthService,
                 public dataService: DataService,
                 iconRegistry: MdIconRegistry,
                 sanitizer: DomSanitizer) {
+
+        this.currentPage = 'stats';
 
         this.authUser = null;
         authService.authState$.subscribe(authUser => {
