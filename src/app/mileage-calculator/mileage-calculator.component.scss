@@ -4,38 +4,49 @@ ngui-map.mileage-map {
 
 .calculator-inputs {
   height: 25vh;
+  position: relative;
 
-  .mat-icon {
-    color: rgba(0,0,0,.54);
-    margin-right: 6px;
-  }
-  .airport-input-container {
-    .airport-input {
-      font-size: 26px;
+  .inputs-row {
+    .mat-icon {
+      color: rgba(0,0,0,.54);
+      margin-right: 6px;
+    }
+    .airport-input-container {
+      .airport-input {
+        font-size: 26px;
+        width: 108px;
+        text-transform: uppercase;
+      }
+
+      .mat-input-placeholder-wrapper {
+        font-size: 26px;
+      }
     }
 
-    .mat-input-placeholder-wrapper {
-      font-size: 26px;
-    }
-  }
-
-  .inputs-spacer {
-    height: 48px;
-    width: 128px;
-    position: relative;
-
-    .airplane {
-      position: absolute;
+    .inputs-spacer {
+      height: 48px;
       width: 128px;
-      height: 28px;
-      top: 50%;
-      left: 30%;
-      opacity: 0;
-      -webkit-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
-      -webkit-animation: move 3s infinite;
-      animation: move 3s infinite;
+      position: relative;
+
+      .airplane {
+        position: absolute;
+        width: 128px;
+        height: 28px;
+        top: 50%;
+        left: 30%;
+        opacity: 0;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        -webkit-animation: move 3s infinite;
+        animation: move 3s infinite;
+      }
     }
+  }
+
+  .calculate-fab {
+    position: absolute;
+    bottom: -28px;
+    left: calc(50% - 28px);
   }
 }
 
@@ -45,8 +56,13 @@ ngui-map.mileage-map {
 
   h1 {
     color: rgba(255,255,255,1);
-    font-weight: 400;
-    font-size: 46px;
+    font-weight: 500;
+    font-size: 56px;
+
+    span {
+      font-weight: 400;
+      font-size: 46px;
+    }
   }
 }
 

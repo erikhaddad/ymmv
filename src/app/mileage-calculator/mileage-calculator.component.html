@@ -1,59 +1,55 @@
 <main class="mileage-content">
   <section>
     <div class="calculator-inputs" fxLayout="column" fxLayoutAlign="center center">
-      <div fxLayout="row" fxLayoutAlign="center center">
-        <!-- ORIGIN-->
-        <div fxLayout="row" fxLayoutAlign="center center">
-          <md-icon>place</md-icon>
+      <form [formGroup]="airportsForm" (ngSubmit)="onSubmit($event)" novalidate>
+        <div class="inputs-row" fxLayout="row" fxLayoutAlign="center center">
+          <!-- ORIGIN-->
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <md-icon>place</md-icon>
 
-          <md-input-container class="airport-input-container">
-            <input class="airport-input" mdInput
-                   name="origin"
-                   placeholder="Origin Airport"
-                   [mdAutocomplete]="origin"
-                   [formControl]="airportCtrl">
-          </md-input-container>
+            <md-input-container class="airport-input-container" [floatPlaceholder]="'never'">
+              <input class="airport-input" mdInput
+                     maxlength="3"
+                     placeholder="From"
+                     autocomplete="off"
+                     formControlName="origin">
+              <md-hint align="start">{{ originHintText }}</md-hint>
+            </md-input-container>
+          </div>
 
-          <md-autocomplete #origin="mdAutocomplete" [displayWith]="displayFn">
-            <md-option *ngFor="let airport of filteredAirports | async"
-                       [value]="airport"
-                       (onSelect)="myCallbackFunction($event)">
-              {{ airport.name }}
-            </md-option>
-          </md-autocomplete>
+          <div class="inputs-spacer">
+            <!-- -->
+            <svg class="airplane">
+              <use [attr.xlink:href]="'#airplane'"></use>
+            </svg>
+            <!-- -->
+          </div>
+
+          <!-- DESTINATION -->
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <md-icon>place</md-icon>
+
+            <md-input-container class="airport-input-container" [floatPlaceholder]="'never'">
+              <input class="airport-input" mdInput
+                     maxlength="3"
+                     placeholder="To"
+                     autocomplete="off"
+                     formControlName="destination">
+              <md-hint align="start">{{ destinationHintText }}</md-hint>
+            </md-input-container>
+          </div>
         </div>
-
-        <div class="inputs-spacer">
-          <svg class="airplane">
-            <use xlink:href="#airplane"></use>
-          </svg>
-        </div>
-
-        <!-- DESTINATION -->
-        <div fxLayout="row" fxLayoutAlign="center center">
-          <md-icon>place</md-icon>
-
-          <md-input-container class="airport-input-container">
-            <input class="airport-input" mdInput
-                   name="destination"
-                   placeholder="Destination Airport"
-                   [mdAutocomplete]="destination"
-                   [formControl]="airportCtrl">
-          </md-input-container>
-
-          <md-autocomplete #destination="mdAutocomplete" [displayWith]="displayFn">
-            <md-option *ngFor="let airport of filteredAirports | async"
-                       [value]="airport"
-                       (onSelect)="myCallbackFunction($event)">
-              {{ airport.name }}
-            </md-option>
-          </md-autocomplete>
-        </div>
-      </div>
+        <button md-fab
+                class="calculate-fab"
+                type="submit"
+                color="primary" [disabled]="airportsForm.invalid">
+          <md-icon>done</md-icon>
+        </button>
+      </form>
     </div>
 
     <div class="calculator-outputs" fxLayout="row" fxLayoutAlign="center center">
-      <h1>{{ calculatedMiles }} {{ calculatedMiles !== 1 ? 'miles' : 'mile' }}</h1>
+      <h1>{{ calculatedMiles | number }} <span>{{ calculatedMiles !== 1 ? 'miles' : 'mile' }}</span></h1>
     </div>
   </section>
 
