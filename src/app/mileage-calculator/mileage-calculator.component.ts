@@ -45,65 +45,8 @@ export class MileageCalculatorComponent implements OnInit {
         polylines: [] // array of lines to display
     };
 
-
-    stateCtrl: FormControl;
-    filteredStates: any;
-
     airportCtrl: FormControl;
     filteredAirports: any;
-
-    states = [
-        'Alabama',
-        'Alaska',
-        'Arizona',
-        'Arkansas',
-        'California',
-        'Colorado',
-        'Connecticut',
-        'Delaware',
-        'Florida',
-        'Georgia',
-        'Hawaii',
-        'Idaho',
-        'Illinois',
-        'Indiana',
-        'Iowa',
-        'Kansas',
-        'Kentucky',
-        'Louisiana',
-        'Maine',
-        'Maryland',
-        'Massachusetts',
-        'Michigan',
-        'Minnesota',
-        'Mississippi',
-        'Missouri',
-        'Montana',
-        'Nebraska',
-        'Nevada',
-        'New Hampshire',
-        'New Jersey',
-        'New Mexico',
-        'New York',
-        'North Carolina',
-        'North Dakota',
-        'Ohio',
-        'Oklahoma',
-        'Oregon',
-        'Pennsylvania',
-        'Rhode Island',
-        'South Carolina',
-        'South Dakota',
-        'Tennessee',
-        'Texas',
-        'Utah',
-        'Vermont',
-        'Virginia',
-        'Washington',
-        'West Virginia',
-        'Wisconsin',
-        'Wyoming',
-    ];
 
     airports$: FirebaseListObservable<IAirport[]>;
     airports: IAirport[];
@@ -127,15 +70,10 @@ export class MileageCalculatorComponent implements OnInit {
 
         this.airports$ = dataService.airports;
         this.airports$.subscribe(airports => {
-            this.airports = _.orderBy(airports, 'name', 'desc');
+            this.airports = _.orderBy(airports, 'name', 'asc');
         });
 
         this.calculatedMiles = 0;
-
-        this.stateCtrl = new FormControl();
-        this.filteredStates = this.stateCtrl.valueChanges
-            .startWith(null)
-            .map(name => this.filterStates(name));
 
         this.airportCtrl = new FormControl();
         this.filteredAirports = this.airportCtrl.valueChanges
@@ -149,11 +87,6 @@ export class MileageCalculatorComponent implements OnInit {
 
     getAirportByCode(code: string): IAirport {
         return _.find(this.airports, {'code': code});
-    }
-
-    filterStates(val: string) {
-        return val ? this.states.filter(s => new RegExp(`^${val}`, 'gi').test(s))
-            : this.states;
     }
 
     filterAirports(val: string) {
@@ -217,5 +150,9 @@ export class MileageCalculatorComponent implements OnInit {
     onMapClick(event) {
         // this.positions.push(event.latLng);
         event.target.panTo(event.latLng);
+    }
+
+    myCallbackFunction(evt: Event) {
+        console.log(evt);
     }
 }
