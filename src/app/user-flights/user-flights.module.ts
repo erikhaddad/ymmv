@@ -18,6 +18,8 @@ import {UserFlightsBoardingPassesComponent} from '../user-flights-boarding-passe
 import {SetFlightComponent} from '../set-flight/set-flight.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
+import {QRCodeModule} from 'angular2-qrcode';
+
 @NgModule({
     declarations: [
         BoardingPassComponent,
@@ -31,17 +33,18 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     imports: [
         CommonModule,
         RouterModule.forChild([
-            {path: 'flights/:userId', component: UserFlightsComponent, canActivate: [AuthGuard]},
-            {path: 'flights/:userId/boarding-passes', component: UserFlightsBoardingPassesComponent, canActivate: [AuthGuard]},
-            {path: 'flights/:userId/map', component: UserFlightsMapComponent, canActivate: [AuthGuard]},
-            {path: 'flights/:userId/stats', component: UserFlightsStatsComponent, canActivate: [AuthGuard]},
-            {path: 'flights/:userId/table', component: UserFlightsTableComponent, canActivate: [AuthGuard]},
+            {path: 'user/:userId', component: UserFlightsComponent, canActivate: [AuthGuard]},
+            {path: 'user/:userId/boarding-passes', component: UserFlightsBoardingPassesComponent, canActivate: [AuthGuard]},
+            {path: 'user/:userId/map', component: UserFlightsMapComponent, canActivate: [AuthGuard]},
+            {path: 'user/:userId/stats', component: UserFlightsStatsComponent, canActivate: [AuthGuard]},
+            {path: 'user/:userId/table', component: UserFlightsTableComponent, canActivate: [AuthGuard]},
             {path: '', redirectTo: '/home', pathMatch: 'full'}
         ]),
         FormsModule,
         ReactiveFormsModule,
         FlexLayoutModule,
         MaterialModule,
+        QRCodeModule,
         NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=' + environment.google.apiKey})
     ],
     providers: [

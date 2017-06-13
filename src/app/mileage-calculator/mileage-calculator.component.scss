@@ -1,0 +1,72 @@
+ngui-map.mileage-map {
+  height: 50vh;
+}
+
+.calculator-inputs {
+  height: 25vh;
+
+  .mat-icon {
+    color: rgba(0,0,0,.54);
+    margin-right: 6px;
+  }
+  .airport-input-container {
+    .airport-input {
+      font-size: 26px;
+    }
+
+    .mat-input-placeholder-wrapper {
+      font-size: 26px;
+    }
+  }
+
+  .inputs-spacer {
+    height: 48px;
+    width: 128px;
+    position: relative;
+
+    .airplane {
+      position: absolute;
+      width: 128px;
+      height: 28px;
+      top: 50%;
+      left: 30%;
+      opacity: 0;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      -webkit-animation: move 3s infinite;
+      animation: move 3s infinite;
+    }
+  }
+}
+
+.calculator-outputs {
+  height: 25vh;
+  background-color: #ff9800;
+
+  h1 {
+    color: rgba(255,255,255,1);
+    font-weight: 400;
+    font-size: 46px;
+  }
+}
+
+@-webkit-keyframes move {
+  40% {
+    left: 50%;
+    opacity: 1;
+  }
+  100% {
+    left: 70%;
+    opacity: 0;
+  }
+}
+@keyframes move {
+  40% {
+    left: 50%;
+    opacity: 1;
+  }
+  100% {
+    left: 70%;
+    opacity: 0;
+  }
+}

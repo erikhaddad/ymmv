@@ -1,6 +1,7 @@
 <main class="flights-content">
   <section>
     <ngui-map
+        class="landing"
         [zoom]="mapConfig.zoom"
         [center]="mapConfig.center"
         (mapReady$)="onMapReady($event)"

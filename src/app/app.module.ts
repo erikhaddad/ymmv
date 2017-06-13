@@ -27,6 +27,7 @@ import {RouterModule} from '@angular/router';
 import {SignInModule} from './sign-in/sign-in.module';
 import {UserFlightsModule} from './user-flights/user-flights.module';
 import {MileageCalculatorModule} from './mileage-calculator/mileage-calculator.module';
+import {LayoutService} from './common/layout.service';
 
 @NgModule({
     declarations: [
@@ -38,7 +39,7 @@ import {MileageCalculatorModule} from './mileage-calculator/mileage-calculator.m
         RouterModule.forRoot([
             {path: 'home', pathMatch: 'full', loadChildren: 'app/home/home.module#HomeModule'},
             {path: 'mileage-calculator', loadChildren: 'app/mileage-calculator/mileage-calculator.module#MileageCalculatorModule'},
-            {path: 'flights/:userId', loadChildren: 'app/user-flights/user-flights.module#UserFlightsModule'}
+            {path: 'user/:userId', loadChildren: 'app/user-flights/user-flights.module#UserFlightsModule'}
         ]),
         HttpModule,
         FormsModule,
@@ -58,7 +59,7 @@ import {MileageCalculatorModule} from './mileage-calculator/mileage-calculator.m
         UserFlightsModule,
         MileageCalculatorModule
     ],
-    providers: [],
+    providers: [LayoutService],
     bootstrap: [AppComponent]
 })
 

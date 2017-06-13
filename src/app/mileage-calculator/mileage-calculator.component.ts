@@ -5,12 +5,16 @@ import {IAirport} from '../common/data-model';
 
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
+import {FirebaseListObservable} from 'angularfire2/database';
+import {DataService} from '../common/data.service';
+
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-mileage-calculator',
     templateUrl: './mileage-calculator.component.html',
     styleUrls: ['./mileage-calculator.component.scss'],
-    encapsulation: ViewEncapsulation.Emulated,
+    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.Default
 })
 export class MileageCalculatorComponent implements OnInit {
@@ -44,6 +48,9 @@ export class MileageCalculatorComponent implements OnInit {
 
     stateCtrl: FormControl;
     filteredStates: any;
+
+    airportCtrl: FormControl;
+    filteredAirports: any;
 
     states = [
         'Alabama',
@@ -98,7 +105,10 @@ export class MileageCalculatorComponent implements OnInit {
         'Wyoming',
     ];
 
-    constructor() {
+    airports$: FirebaseListObservable<IAirport[]>;
+    airports: IAirport[];
+
+    constructor(public dataService: DataService) {
         this.selectedOriginAirportCode = '';
         this.selectedOriginAirportArr = [null, null, null];
         this.selectedOriginAirportObj = null;
@@ -115,20 +125,97 @@ export class MileageCalculatorComponent implements OnInit {
         this.selectedAirlineObj = null;
         this.selectedAirlineHelperText = 'Airline and flight number';
 
+        this.airports$ = dataService.airports;
+        this.airports$.subscribe(airports => {
+            this.airports = _.orderBy(airports, 'name', 'desc');
+        });
+
         this.calculatedMiles = 0;
 
         this.stateCtrl = new FormControl();
         this.filteredStates = this.stateCtrl.valueChanges
             .startWith(null)
             .map(name => this.filterStates(name));
+
+        this.airportCtrl = new FormControl();
+        this.filteredAirports = this.airportCtrl.valueChanges
+            .startWith(null)
+            .map(name => this.filterAirports(name));
     }
 
     ngOnInit() {
 
     }
 
+    getAirportByCode(code: string): IAirport {
+        return _.find(this.airports, {'code': code});
+    }
+
     filterStates(val: string) {
         return val ? this.states.filter(s => new RegExp(`^${val}`, 'gi').test(s))
             : this.states;
+    }
+
+    filterAirports(val: string) {
+        return val ? this.airports.filter(s => new RegExp(`^${val}`, 'gi').test(s.name))
+            : this.airports;
+    }
+
+    displayFn(airport: IAirport): string {
+        return airport ? airport.name : null;
+    }
+
+
+    private toRadians(coord) {
+        return coord * Math.PI / 180;
+    }
+
+    private calculateDistance(lat1, lat2, lon1, lon2) {
+        const latOne = this.toRadians(lat1),
+            latTwo = this.toRadians(lat2),
+            lonChange = this.toRadians(lon2 - lon1),
+            R = 3959; // mi
+
+        return Math.round(Math.acos(Math.sin(latOne) * Math.sin(latTwo) + Math.cos(latOne) * Math.cos(latTwo) * Math.cos(lonChange)) * R);
+    }
+
+    private calculateSegmentMiles(origin, destination) {
+        const originObj = this.getAirportByCode(origin),
+            destinationObj = this.getAirportByCode(destination);
+
+        let estimation = null;
+        if (!!originObj && !!destinationObj) {
+            estimation = this.calculateDistance(originObj.latitude, destinationObj.latitude,
+                originObj.longitude, destinationObj.longitude);
+        }
+
+        return estimation || 0;
+    }
+
+
+    onMapReady(map) {
+        /*
+         this.addRandomMarkers();
+
+         console.log('map', map);
+         console.log('markers', map.markers);  // to get all markers as an array
+         */
+    }
+
+    onIdle(event) {
+        // console.log('map', event.target);
+    }
+
+    onMarkerInit(marker) {
+        // console.log('marker', marker);
+    }
+
+    onPolylineInit(polyline) {
+        // console.log('polyline', polyline);
+    }
+
+    onMapClick(event) {
+        // this.positions.push(event.latLng);
+        event.target.panTo(event.latLng);
     }
 }

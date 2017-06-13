@@ -100,7 +100,7 @@ export class UserFlightsComponent implements OnInit {
                     this.populateMap();
                 });
             } else {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/']);
             }
         });
     }

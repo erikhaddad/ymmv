@@ -32,7 +32,7 @@ export class AppComponent {
             icon: 'map'
         },
         {
-            id: 'passes',
+            id: 'boarding-passes',
             title: 'Passes',
             icon: 'receipt'
         },
@@ -40,11 +40,6 @@ export class AppComponent {
             id: 'table',
             title: 'Table',
             icon: 'table_chart'
-        },
-        {
-            id: 'calculator',
-            title: 'Calculator',
-            icon: 'functions'
         }
     ];
 

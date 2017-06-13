@@ -1,3 +1,28 @@
-<p>
-  user-flights-boarding-passes works!
-</p>
+<main class="flights-content">
+  <md-toolbar color="primary">
+    <div fxFlex="33"></div>
+    <div fxFlex="33" class="flight-count">{{ userFlights.length }} <span>{{ userFlights.length == 1 ? 'flight' : 'flights' }}</span></div>
+    <div fxFlex="33"></div>
+  </md-toolbar>
+  <section>
+    <ul class="timeline">
+      <li *ngFor="let flight of userFlights; let idx = index"
+          [ngClass]="{'timeline-inverted': (idx % 2 == 1)}">
+        <div class="timeline-badge">
+          <button md-mini-fab color="primary"
+                  (click)="editFlight(flight, $event)">
+            <md-icon class="non-hover-mode">local_airport</md-icon>
+            <md-icon class="hover-mode">mode_edit</md-icon>
+          </button>
+        </div>
+
+        <div class="timeline-panel">
+          <app-boarding-pass [flight]="flight"
+                             [user]="user"
+                             [departure]="getAirportByCode(flight.departure.airport)"
+                             [arrival]="getAirportByCode(flight.arrival.airport)"></app-boarding-pass>
+        </div>
+      </li>
+    </ul>
+  </section>
+</main>

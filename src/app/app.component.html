@@ -1,7 +1,7 @@
 <div class="app-toolbar-container">
   <md-toolbar class="mat-elevation-z6" color="primary">
     <div class="lockup">
-      <a href="/" fxLayout="row" fxLayoutAlign="start center">
+      <a routerLink="/" fxLayout="row" fxLayoutAlign="start center">
         <md-icon class="lockup-logo">local_airport</md-icon>
         <span class="lockup-text">
             <span class="lockup-brand lockup-brand-sm">YMMV</span>
@@ -11,6 +11,10 @@
     </div>
     <span fxFlex></span>
     <div class="account" *ngIf="authUser != null">
+      <button md-icon-button>
+        <md-icon>notifications_none</md-icon>
+      </button>
+
       <button md-icon-button class="logged-in-user-button">
         <img class="logged-in-user-avatar" [src]="authUser.avatar" />
       </button>
@@ -19,14 +23,21 @@
 </div>
 
 <md-sidenav-container class="app-sidenav-container">
-  <md-sidenav #pages class="app-sidenav" mode="side" [opened]="true" fxLayout="column">
+  <md-sidenav #pages class="app-sidenav app-sidenav-left" mode="side" [opened]="true" fxLayout="column">
     <md-nav-list fxFlex *ngIf="authUser">
       <a md-list-item
          *ngFor="let navItem of navItems"
-         [routerLink]="['/flights', authUser.id, navItem.id]"
+         [routerLink]="['/user', authUser.id, navItem.id]"
          [class.active]="navItem.id == currentPage">
         <md-icon md-list-icon>{{ navItem.icon }}</md-icon>
         <h3 md-line>{{ navItem.title }}</h3>
+      </a>
+      <md-divider></md-divider>
+      <a md-list-item
+         [routerLink]="['/mileage-calculator']"
+         [class.active]="currentPage == 'mileage-calculator'">
+        <md-icon md-list-icon>functions</md-icon>
+        <h3 md-line>Calculator</h3>
       </a>
     </md-nav-list>
   </md-sidenav>

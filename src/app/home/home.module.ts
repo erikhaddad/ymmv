@@ -14,7 +14,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     imports: [
         CommonModule,
         RouterModule.forChild([
-            {path: 'home', component: HomeComponent},
+            {path: '/home', component: HomeComponent},
             {path: '', pathMatch: 'full', component: HomeComponent}
         ]),
         MaterialModule,

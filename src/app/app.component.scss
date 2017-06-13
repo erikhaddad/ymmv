@@ -8,6 +8,10 @@
   md-sidenav {
     width: 248px;
 
+    &.app-sidenav-left {
+      border-right: 1px solid rgba(0,0,0,.06);
+    }
+
     .mat-nav-list {
       .mat-list-item {
         .mat-list-icon {

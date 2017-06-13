@@ -1,42 +1,64 @@
 <main class="mileage-content">
   <section>
-    <!-- ORIGIN-->
-    <div fxLayout="row" fxLayoutAlign="center center">
-      <md-icon>place</md-icon>
+    <div class="calculator-inputs" fxLayout="column" fxLayoutAlign="center center">
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <!-- ORIGIN-->
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <md-icon>place</md-icon>
 
-      <md-input-container>
-        <input mdInput placeholder="State" [mdAutocomplete]="auto" [formControl]="stateCtrl">
-      </md-input-container>
+          <md-input-container class="airport-input-container">
+            <input class="airport-input" mdInput placeholder="Origin Airport" [mdAutocomplete]="auto" [formControl]="airportCtrl">
+          </md-input-container>
 
-      <md-autocomplete #auto="mdAutocomplete">
-        <md-option *ngFor="let state of filteredStates | async" [value]="state">
-          {{ state }}
-        </md-option>
-      </md-autocomplete>
+          <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayFn">
+            <md-option *ngFor="let airport of filteredAirports | async" [value]="airport">
+              {{ airport.name }}
+            </md-option>
+          </md-autocomplete>
+        </div>
+
+        <div class="inputs-spacer">
+          <svg class="airplane">
+            <use xlink:href="#airplane"></use>
+          </svg>
+        </div>
+
+        <!-- DESTINATION -->
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <md-icon>place</md-icon>
+
+          <md-input-container class="airport-input-container">
+            <input class="airport-input" mdInput placeholder="Destination Airport" [mdAutocomplete]="auto" [formControl]="airportCtrl">
+          </md-input-container>
+
+          <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayFn">
+            <md-option *ngFor="let airport of filteredAirports | async" [value]="airport">
+              {{ airport.name }}
+            </md-option>
+          </md-autocomplete>
+        </div>
+      </div>
     </div>
 
-    <!-- DESTINATION -->
-    <div fxLayout="row" fxLayoutAlign="center center">
-      <md-icon>place</md-icon>
-
-      <md-input-container>
-        <input mdInput placeholder="State" [mdAutocomplete]="auto" [formControl]="stateCtrl">
-      </md-input-container>
-
-      <md-autocomplete #auto="mdAutocomplete">
-        <md-option *ngFor="let state of filteredStates | async" [value]="state">
-          {{ state }}
-        </md-option>
-      </md-autocomplete>
-    </div>
-
-    <div fxLayout="row" fxLayoutAlign="center center">
-      <h1>{{ calculatedMiles }}</h1>
+    <div class="calculator-outputs" fxLayout="row" fxLayoutAlign="center center">
+      <h1>{{ calculatedMiles }} {{ calculatedMiles !== 1 ? 'miles' : 'mile' }}</h1>
     </div>
   </section>
 
+  <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
+    <symbol id="airplane" viewBox="243.5 245.183 25 21.633">
+      <g>
+        <path fill="#336699" d="M251.966,266.816h1.242l6.11-8.784l5.711,0.2c2.995-0.102,3.472-2.027,3.472-2.308
+                            c0-0.281-0.63-2.184-3.472-2.157l-5.711,0.2l-6.11-8.785h-1.242l1.67,8.983l-6.535,0.229l-2.281-3.28h-0.561v3.566
+                            c-0.437,0.257-0.738,0.724-0.757,1.266c-0.02,0.583,0.288,1.101,0.757,1.376v3.563h0.561l2.281-3.279l6.535,0.229L251.966,266.816z
+                            "/>
+      </g>
+    </symbol>
+  </svg>
+
   <section>
     <ngui-map
+        class="mileage-map"
         [zoom]="mapConfig.zoom"
         [center]="mapConfig.center"
         (mapReady$)="onMapReady($event)"
