@@ -18,7 +18,7 @@ import {UserFlightsBoardingPassesComponent} from '../user-flights-boarding-passe
 import {SetFlightComponent} from '../set-flight/set-flight.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import {QRCodeModule} from 'angular2-qrcode';
+// import {QRCodeModule} from 'angular2-qrcode';
 
 @NgModule({
     declarations: [
@@ -44,7 +44,7 @@ import {QRCodeModule} from 'angular2-qrcode';
         ReactiveFormsModule,
         FlexLayoutModule,
         MaterialModule,
-        QRCodeModule,
+        // QRCodeModule,
         NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=' + environment.google.apiKey})
     ],
     providers: [

@@ -1,9 +1,10 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {AngularFireAuth} from 'angularfire2/auth';
 
 import * as firebase from 'firebase/app';
 import {FirebaseError} from 'firebase/app';
+
+import {AngularFireAuth} from 'angularfire2/auth';
 
 export enum AuthProviders {
     Github = 0,
@@ -21,7 +22,7 @@ export class AuthService {
     public user: firebase.User;
     public authState$: Observable<firebase.User>;
 
-    constructor(private afAuth: AngularFireAuth) {
+    constructor(@Inject(AngularFireAuth) private afAuth: AngularFireAuth) {
         this.user = null;
         this.authState$ = afAuth.authState;
 
