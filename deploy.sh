@@ -19,7 +19,7 @@ ng build --prod --aot
 cp node_modules/@angular/service-worker/bundles/worker-basic.min.js dist/
 
 # Copy manifest.json to dist
-cp src/manifest.json dist/
+#cp src/manifest.json dist/
 
 # Deploy
 firebase deploy
