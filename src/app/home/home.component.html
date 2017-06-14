@@ -20,7 +20,7 @@
       <div class="welcome-text" fxLayout="column" *ngIf="authUser != null">
         <h2>Welcome back,</h2>
         <div fxLayout="row" fxLayoutAlign="center center">
-          <img class="user-avatar" [src]="authUser.avatar" />
+          <img class="user-avatar" [src]="authUser.avatar" alt="Logged in user avatar" />
           <h1 class="user-name">{{ authUser.name }}</h1>
         </div>
         <div class="welcome-action" fxLayout="row" fxLayoutAlign="center center">

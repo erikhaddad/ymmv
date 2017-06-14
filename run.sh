@@ -23,7 +23,4 @@ cp src/manifest.json dist/
 
 # Serve
 cd dist
-#http-server
-#single-page-server
-#single-page-server -b=dist -f=dist/index.html
 angular-http-server

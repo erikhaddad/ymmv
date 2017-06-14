@@ -23,5 +23,6 @@
   "orientation": "any",
   "background_color": "#039be5",
   "related_applications": [],
-  "prefer_related_applications": false
+  "prefer_related_applications": false,
+  "gcm_sender_id": "396306104209"
 }
