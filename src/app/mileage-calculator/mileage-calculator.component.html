@@ -5,12 +5,12 @@
         <div class="inputs-row" fxLayout="row" fxLayoutAlign="center center">
           <!-- ORIGIN-->
           <div fxLayout="row" fxLayoutAlign="center center">
-            <md-icon>place</md-icon>
+            <md-icon>trip_origin</md-icon>
 
             <md-input-container class="airport-input-container" [floatPlaceholder]="'never'">
               <input class="airport-input" mdInput
                      maxlength="3"
-                     placeholder="From"
+                     placeholder="from"
                      autocomplete="off"
                      formControlName="origin">
               <md-hint align="start">{{ originHintText }}</md-hint>
@@ -32,7 +32,7 @@
             <md-input-container class="airport-input-container" [floatPlaceholder]="'never'">
               <input class="airport-input" mdInput
                      maxlength="3"
-                     placeholder="To"
+                     placeholder="to"
                      autocomplete="off"
                      formControlName="destination">
               <md-hint align="start">{{ destinationHintText }}</md-hint>

@@ -8,18 +8,19 @@ ngui-map.mileage-map {
 
   .inputs-row {
     .mat-icon {
-      color: rgba(0,0,0,.54);
-      margin-right: 6px;
+      color: rgba(0,0,0,.24);
+      margin-right: 12px;
     }
+
     .airport-input-container {
       .airport-input {
-        font-size: 26px;
+        font-size: 36px;
         width: 108px;
         text-transform: uppercase;
       }
 
       .mat-input-placeholder-wrapper {
-        font-size: 26px;
+        font-size: 36px;
       }
     }
 
@@ -60,7 +61,7 @@ ngui-map.mileage-map {
     font-size: 56px;
 
     span {
-      font-weight: 400;
+      font-weight: 300;
       font-size: 46px;
     }
   }

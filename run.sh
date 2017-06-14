@@ -18,6 +18,12 @@ ng build --prod
 # Copy prebuilt worker into our site
 cp node_modules/@angular/service-worker/bundles/worker-basic.min.js dist/
 
+# Copy manifest.json to dist
+cp src/manifest.json dist/
+
 # Serve
 cd dist
-http-server
+#http-server
+#single-page-server
+#single-page-server -b=dist -f=dist/index.html
+angular-http-server

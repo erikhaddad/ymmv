@@ -1,0 +1,27 @@
+{
+  "dir": "ltr",
+  "lang": "en",
+  "name": "Your Mileage May Vary",
+  "scope": "/",
+  "display": "standalone",
+  "start_url": "/index.html",
+  "short_name": "YMMV",
+  "icons": [
+    {
+      "src": "/assets/logo.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#039be5",
+  "description": "",
+  "orientation": "any",
+  "background_color": "#fafafa",
+  "related_applications": [],
+  "prefer_related_applications": false
+}

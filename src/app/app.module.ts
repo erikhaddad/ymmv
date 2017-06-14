@@ -5,7 +5,7 @@ import {HttpModule} from '@angular/http';
 
 import {NgServiceWorker, ServiceWorkerModule} from '@angular/service-worker';
 
-import 'hammerjs';
+import * as hammerjs from 'hammerjs';
 
 import {environment} from '../environments/environment';
 
@@ -37,9 +37,10 @@ import {LayoutService} from './common/layout.service';
         BrowserModule.withServerTransition({appId: 'ymmv'}),
         // Application routing
         RouterModule.forRoot([
-            {path: 'home', pathMatch: 'full', loadChildren: 'app/home/home.module#HomeModule'},
+            {path: 'home', loadChildren: 'app/home/home.module#HomeModule'},
             {path: 'mileage-calculator', loadChildren: 'app/mileage-calculator/mileage-calculator.module#MileageCalculatorModule'},
-            {path: 'user/:userId', loadChildren: 'app/user-flights/user-flights.module#UserFlightsModule'}
+            {path: 'user/:userId', loadChildren: 'app/user-flights/user-flights.module#UserFlightsModule'},
+            {path: '', redirectTo: '/home', pathMatch: 'full'}
         ]),
         HttpModule,
         FormsModule,
@@ -66,7 +67,7 @@ import {LayoutService} from './common/layout.service';
 export class AppModule {
     constructor(sw: NgServiceWorker) {
         sw.registerForPush({
-            applicationServerKey: environment.google.messaging
+            'applicationServerKey': environment.webpush
         }).subscribe(sub => {
             console.log(sub.toJSON());
         });

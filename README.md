@@ -46,6 +46,11 @@ platformBrowserDynamic()
     });
 ```
 
+**Tell angular-cli to build the project with service worker**
+```bash
+ng set apps.0.serviceWorker=true
+```
+
 _app.module.ts_
 
 ```javascript
@@ -255,3 +260,4 @@ firebase deploy
 
 [Google Developers: Debugging Service Workers](https://goo.gl/i5HePC)
 
+[Transforming an existing Angular application into a Progressive Web App](https://medium.com/@cdeniz/transforming-an-existing-angular-application-into-a-progressive-web-app-d48869ba391f)

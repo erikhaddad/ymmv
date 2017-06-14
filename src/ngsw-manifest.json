@@ -1,10 +1,29 @@
 {
+  "routing": {
+    "routes": {
+      "/": {
+        "match": true
+      },
+      "/user": {
+        "match": "prefix"
+      },
+      "/mileage-calculator": {
+        "match": "prefix"
+      }
+    }
+  },
   "dynamic": {
     "group": [
       {
         "name": "firebase",
         "urls": {
+          "http://localhost": {
+            "match": "prefix"
+          },
           "https://ymmv-ac94d.firebaseio.com": {
+            "match": "prefix"
+          },
+          "https://ymmv.flights": {
             "match": "prefix"
           }
         },

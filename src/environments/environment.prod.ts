@@ -1,9 +1,8 @@
 export const environment = {
     production: true,
+    webpush: 'BC3DFTS4wg7tVeKgoeUtrRNpnW-gXo5xXZyy0FgQzKmMLWUdk8ARnxPj8ZYnBvEA0Hw-nGDMosApyQvVY_ibKns',
     google: {
-        apiKey: 'AIzaSyAHpuuN-oTpIVi9chdAI01SRCzcrxTFsHc',
-        messaging: 'AAAAXEWvP5E:APA91bGIpagExWOIMBF_Z6sQA2ktz_Y3qVOd_JuYP4fIxYIIC95tDO7pINbiFbWYprXik-' +
-                    'QowhDwjhwXWlXg72AM87BSiiCLvh8_zp8anqNp5GXwsIGvf9EGICVn9N9GXE6PSpRRYv-S'
+        apiKey: 'AIzaSyAHpuuN-oTpIVi9chdAI01SRCzcrxTFsHc'
     },
     firebase: {
         apiKey: 'AIzaSyAHpuuN-oTpIVi9chdAI01SRCzcrxTFsHc',
