@@ -1,29 +1,57 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy, OnInit} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
+import {Subscription} from 'rxjs/Subscription';
+import {MediaChange, ObservableMedia} from '@angular/flex-layout';
+
+const SCREEN_MOBILE = 'screen and (max-width: 600px)';
 
 @Injectable()
-export class LayoutService {
+export class LayoutService implements OnInit, OnDestroy {
+
+    activeMediaQuery: string;
+    watcher: Subscription;
 
     private _sectionId = 'Home';
 
     private _toolbarShowState: boolean;
     private _navShowState: boolean;
     private _fabShowState: boolean;
+    private _mobileWidthState: boolean;
 
     // Observable boolean sources
     private showNavAnnouncedSource = new Subject<boolean>();
     private showToolbarAnnouncedSource = new Subject<boolean>();
     private showFabAnnouncedSource = new Subject<boolean>();
+    private widthMobileAnnouncedSource = new Subject<boolean>();
 
     // Observable boolean streams
     showToolbarAnnounced$ = this.showToolbarAnnouncedSource.asObservable();
     showNavAnnounced$ = this.showNavAnnouncedSource.asObservable();
     showFabAnnounced$ = this.showFabAnnouncedSource.asObservable();
+    widthMobileAnnounced$ = this.widthMobileAnnouncedSource.asObservable();
 
-    constructor() {
+    constructor(public media: ObservableMedia) {
+        this.activeMediaQuery = '';
+        this.watcher = media.subscribe((change: MediaChange) => {
+            this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
+            if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
+                this._mobileWidthState = true;
+            }
+        });
+
         this._toolbarShowState = false;
         this._navShowState = false;
         this._fabShowState = false;
+    }
+
+    ngOnInit() {
+        if (this.media.isActive('xs') && this.media.isActive(SCREEN_MOBILE)) {
+            this._mobileWidthState = true;
+        }
+    }
+
+    ngOnDestroy() {
+        this.watcher.unsubscribe();
     }
 
     // Service message commands
@@ -38,6 +66,10 @@ export class LayoutService {
     handleShowFab(show: boolean) {
         this.fabShowState = show;
         this.showFabAnnouncedSource.next(show);
+    }
+    handleWidthMobile(isMobile: boolean) {
+        this.mobileWidthState = isMobile;
+        this.widthMobileAnnouncedSource.next(isMobile);
     }
 
     // section id
@@ -76,4 +108,11 @@ export class LayoutService {
         this._fabShowState = value;
     }
 
+    get mobileWidthState(): boolean {
+        return this._mobileWidthState;
+    }
+
+    set mobileWidthState(value: boolean) {
+        this._mobileWidthState = value;
+    }
 }

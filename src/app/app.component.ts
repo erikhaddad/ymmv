@@ -1,6 +1,7 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 import {MdIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
+
 import {FirebaseObjectObservable} from 'angularfire2/database';
 import {IUser} from './common/data-model';
 import {AuthService} from './auth/auth.service';
@@ -117,5 +118,9 @@ export class AppComponent {
         iconRegistry.addSvgIcon(
             'avatar_anonymous',
             sanitizer.bypassSecurityTrustResourceUrl('assets/icons/avatar_anonymous.svg'));
+    }
+
+    toggleSidenav(evt: Event) {
+        this.layoutService.handleShowNav(!this.layoutService.navShowState);
     }
 }

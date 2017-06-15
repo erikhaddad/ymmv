@@ -80,9 +80,11 @@
   background: -webkit-linear-gradient(to bottom, #6DD3E7 20%, #fff 50%);
   background: linear-gradient(to bottom, #6DD3E7 20%, #fff 50%);
   background: -moz-linear-gradient(to bottom, #6DD3E7 20%, #fff 50%);
-  /*height: 100vh;*/
-  height: calc(100vh - 64px);
+  height: 100vh;
+  /*height: calc(100vh - 64px);*/
 }
+
+
 
 .cloud {
   width: 250px;

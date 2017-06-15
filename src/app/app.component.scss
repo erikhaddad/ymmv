@@ -4,6 +4,10 @@
 
   &.hasToolbar {
     height: calc(100% - 64px);
+
+    #clouds {
+      height: calc(100vh - 64px);
+    }
   }
 
   .app-content {
@@ -97,9 +101,13 @@
 }
 
 
-@media (max-width: 600px) {
+@media only screen and (max-width: 600px) {
   .app-sidenav-container.hasToolbar {
     height: calc(100% - 56px);
+
+    #clouds {
+      height: calc(100vh - 56px);
+    }
   }
 }
 

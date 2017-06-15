@@ -186,7 +186,7 @@ export class UserFlightsStatsComponent implements OnInit {
     ngOnInit() {
         this.layoutService.sectionId = 'user-flights-stats';
         this.layoutService.handleShowToolbar(true);
-        this.layoutService.handleShowNav(true);
+        // this.layoutService.handleShowNav(true);
         this.layoutService.handleShowFab(false);
 
         this.paramSubscription = this.route.params.subscribe(params => {
@@ -515,7 +515,11 @@ export class UserFlightsStatsComponent implements OnInit {
 
         _.forEach(this.analysis.distribution.countries, (value, key) => {
             const country = this.getCountryByCode(key);
-            chart1.dataTable.push([country.name, value, (value / this.userFlights.length)*100]);
+            if (typeof country !== 'undefined') {
+                chart1.dataTable.push([country.name, value, (value / this.userFlights.length) * 100]);
+            } else {
+                console.warn('Could not find country by code', key);
+            }
         });
 
         chart1.options = {
