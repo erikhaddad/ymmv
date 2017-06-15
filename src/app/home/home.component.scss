@@ -50,6 +50,10 @@
     text-align: center;
   }
 
+  h2 {
+    font-size: 36px;
+  }
+
   .user-avatar {
     height: 48px;
     width: 48px;
@@ -261,3 +265,34 @@
 }
 
 
+@media (max-width: 600px) {
+  .landing-text {
+    font-size: 42px;
+  }
+
+  .welcome-text {
+    /*padding: 42px 0;*/
+    /*
+    h1, h2 {
+      margin: 6px 0;
+    }
+    */
+
+    /*
+    .user-avatar {
+      height: 24px;
+      width: 24px;
+      margin-right: 6px;
+    }
+    */
+    h2 {
+      font-size: 24px;
+    }
+    .user-name {
+      font-size: 36px;
+    }
+  }
+  .welcome-action {
+    margin-top: 16px;
+  }
+}

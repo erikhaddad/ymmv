@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
 
 import * as _ from 'lodash';
+import {LayoutService} from '../common/layout.service';
 
 @Component({
     selector: 'app-user-flights',
@@ -47,6 +48,7 @@ export class UserFlightsComponent implements OnInit {
 
     constructor(public dataService: DataService,
                 public authService: AuthService,
+                public layoutService: LayoutService,
                 private router: Router,
                 private route: ActivatedRoute) {
 
@@ -72,12 +74,19 @@ export class UserFlightsComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.layoutService.sectionId = 'user-flights-overview';
+        this.layoutService.handleShowToolbar(true);
+        this.layoutService.handleShowNav(true);
+        this.layoutService.handleShowFab(false);
+
         this.paramSubscription = this.route.params.subscribe(params => {
             this.userId = params['userId'];
 
             this.user$ = this.dataService.getUser(this.userId);
             this.user$.subscribe(user => {
                 this.user = user;
+
+                this.layoutService.handleShowFab(this.authUser.id === this.user.id);
             });
 
             if (typeof this.userId !== 'undefined') {

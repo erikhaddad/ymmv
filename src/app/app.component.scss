@@ -1,5 +1,10 @@
 .app-sidenav-container {
-  height: calc(100% - 64px);
+  height: 100%;
+  transition: height .2s cubic-bezier(0.4, 0.0, 0.2, 1);
+
+  &.hasToolbar {
+    height: calc(100% - 64px);
+  }
 
   .app-content {
     height: 100%;
@@ -19,6 +24,15 @@
         }
         .mat-list-text {
           color: rgba(0, 0, 0, .87);
+        }
+
+        &.active {
+          .mat-list-icon {
+            color: rgba(3, 155, 229, .87);
+          }
+          .mat-list-text {
+            color: rgb(3, 155, 229);
+          }
         }
       }
     }
@@ -84,7 +98,7 @@
 
 
 @media (max-width: 600px) {
-  .app-sidenav-container {
+  .app-sidenav-container.hasToolbar {
     height: calc(100% - 56px);
   }
 }

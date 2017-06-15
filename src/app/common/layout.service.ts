@@ -4,40 +4,43 @@ import {Subject} from 'rxjs/Subject';
 @Injectable()
 export class LayoutService {
 
-    private _sectionId = 'Overview';
+    private _sectionId = 'Home';
 
-    private _navExpandedState: boolean;
+    private _toolbarShowState: boolean;
     private _navShowState: boolean;
-    private _darkThemeState: boolean;
+    private _fabShowState: boolean;
 
     // Observable boolean sources
-    private expandedAnnouncedSource = new Subject<boolean>();
-    private showAnnouncedSource = new Subject<boolean>();
-    private darkThemeAnnouncedSource = new Subject<boolean>();
+    private showNavAnnouncedSource = new Subject<boolean>();
+    private showToolbarAnnouncedSource = new Subject<boolean>();
+    private showFabAnnouncedSource = new Subject<boolean>();
 
     // Observable boolean streams
-    expandedAnnounced$ = this.expandedAnnouncedSource.asObservable();
-    showAnnounced$ = this.showAnnouncedSource.asObservable();
-    darkThemeAnnounced$ = this.darkThemeAnnouncedSource.asObservable();
+    showToolbarAnnounced$ = this.showToolbarAnnouncedSource.asObservable();
+    showNavAnnounced$ = this.showNavAnnouncedSource.asObservable();
+    showFabAnnounced$ = this.showFabAnnouncedSource.asObservable();
 
     constructor() {
-        this._navExpandedState = true;
-        this._navShowState = true;
-        this._darkThemeState = true;
+        this._toolbarShowState = false;
+        this._navShowState = false;
+        this._fabShowState = false;
     }
 
     // Service message commands
-    handleExpandedNav(expanded: boolean) {
-        this.navExpandedState = expanded;
-        this.expandedAnnouncedSource.next(expanded);
+    handleShowToolbar(show: boolean) {
+        this.toolbarShowState = show;
+        this.showToolbarAnnouncedSource.next(show);
     }
-
     handleShowNav(show: boolean) {
         this.navShowState = show;
-        this.showAnnouncedSource.next(show);
+        this.showNavAnnouncedSource.next(show);
+    }
+    handleShowFab(show: boolean) {
+        this.fabShowState = show;
+        this.showFabAnnouncedSource.next(show);
     }
 
-    // Getters and setters
+    // section id
     get sectionId(): string {
         return this._sectionId;
     }
@@ -46,13 +49,13 @@ export class LayoutService {
         this._sectionId = value;
     }
 
-    // nav expanded state
-    get navExpandedState(): boolean {
-        return this._navExpandedState;
+    // toolbar state
+    get toolbarShowState(): boolean {
+        return this._toolbarShowState;
     }
 
-    set navExpandedState(value: boolean) {
-        this._navExpandedState = value;
+    set toolbarShowState(value: boolean) {
+        this._toolbarShowState = value;
     }
 
     // nav show state
@@ -64,12 +67,13 @@ export class LayoutService {
         this._navShowState = value;
     }
 
-    // dark theme state
-    get darkThemeState(): boolean {
-        return this._darkThemeState;
+    // floating action button state
+    get fabShowState(): boolean {
+        return this._fabShowState;
     }
 
-    set darkThemeState(value: boolean) {
-        this._darkThemeState = value;
+    set fabShowState(value: boolean) {
+        this._fabShowState = value;
     }
+
 }

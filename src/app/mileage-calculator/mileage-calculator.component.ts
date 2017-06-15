@@ -9,6 +9,7 @@ import {FirebaseListObservable} from 'angularfire2/database';
 import {DataService} from '../common/data.service';
 
 import * as _ from 'lodash';
+import {LayoutService} from '../common/layout.service';
 
 @Component({
     selector: 'app-mileage-calculator',
@@ -40,7 +41,9 @@ export class MileageCalculatorComponent implements OnInit {
     airports$: FirebaseListObservable<IAirport[]>;
     airports: IAirport[];
 
-    constructor(public dataService: DataService, private fb: FormBuilder) {
+    constructor(public dataService: DataService,
+                public layoutService: LayoutService,
+                private fb: FormBuilder) {
 
         this.originHintText = '(e.g. SFO)';
         this.destinationHintText = '(e.g. JFK)';
@@ -60,6 +63,13 @@ export class MileageCalculatorComponent implements OnInit {
         this.filteredAirports = this.airportCtrl.valueChanges
             .startWith(null)
             .map(name => this.filterAirports(name));
+    }
+
+    ngOnInit() {
+        this.layoutService.sectionId = 'mileage-calculator';
+        this.layoutService.handleShowToolbar(true);
+        this.layoutService.handleShowNav(true);
+        this.layoutService.handleShowFab(false);
     }
 
     airportMatcher(control: FormControl, key: string): {[key: string]: boolean} {
@@ -196,10 +206,6 @@ export class MileageCalculatorComponent implements OnInit {
 
     onClick(evt: Event) {
         console.log('click');
-    }
-
-    ngOnInit() {
-
     }
 
     getAirportByCode(code: string): IAirport {

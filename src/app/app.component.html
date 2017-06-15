@@ -1,5 +1,5 @@
 <div class="app-toolbar-container">
-  <md-toolbar class="mat-elevation-z6" color="primary">
+  <md-toolbar class="mat-elevation-z6" color="primary" *ngIf="showToolbar">
     <div class="lockup">
       <a routerLink="/" fxLayout="row" fxLayoutAlign="start center">
         <md-icon class="lockup-logo">local_airport</md-icon>
@@ -22,20 +22,20 @@
   </md-toolbar>
 </div>
 
-<md-sidenav-container class="app-sidenav-container">
-  <md-sidenav #pages class="app-sidenav app-sidenav-left" mode="side" [opened]="true" fxLayout="column">
+<md-sidenav-container class="app-sidenav-container" [class.hasToolbar]="showToolbar">
+  <md-sidenav #pages class="app-sidenav app-sidenav-left" mode="side" [opened]="showNav" fxLayout="column">
     <md-nav-list fxFlex *ngIf="authUser">
       <a md-list-item
          *ngFor="let navItem of navItems"
          [routerLink]="['/user', authUser.id, navItem.id]"
-         [class.active]="navItem.id == currentPage">
+         [class.active]="layoutService.sectionId == navItem.sectionId">
         <md-icon md-list-icon>{{ navItem.icon }}</md-icon>
         <h3 md-line>{{ navItem.title }}</h3>
       </a>
       <md-divider></md-divider>
       <a md-list-item
          [routerLink]="['/mileage-calculator']"
-         [class.active]="currentPage == 'mileage-calculator'">
+         [class.active]="layoutService.sectionId == 'mileage-calculator'">
         <md-icon md-list-icon>functions</md-icon>
         <h3 md-line>Calculator</h3>
       </a>
@@ -51,7 +51,7 @@
   </md-sidenav>
 </md-sidenav-container>
 
-<span class="app-action">
+<span class="app-action" *ngIf="showFab">
   <button class="app-fab-button" md-fab>
     <md-icon>add</md-icon>
   </button>

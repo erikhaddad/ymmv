@@ -4,6 +4,7 @@ import {DataService} from '../common/data.service';
 import {IUser} from '../common/data-model';
 import {FirebaseObjectObservable} from 'angularfire2/database';
 import {Router} from '@angular/router';
+import {LayoutService} from '../common/layout.service';
 
 @Component({
     selector: 'app-home',
@@ -18,7 +19,9 @@ export class HomeComponent implements OnInit {
 
     constructor(public authService: AuthService,
                 public dataService: DataService,
+                public layoutService: LayoutService,
                 private router: Router) {
+
 
         this.authUser = null;
         authService.authState$.subscribe(authUser => {
@@ -31,7 +34,12 @@ export class HomeComponent implements OnInit {
         });
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.layoutService.sectionId = 'home';
+        this.layoutService.handleShowToolbar(false);
+        this.layoutService.handleShowNav(false);
+        this.layoutService.handleShowFab(false);
+    }
 
     signInWithGoogle(): void {
         this.authService.signInWithGoogle()

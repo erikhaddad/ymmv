@@ -39,6 +39,7 @@ import {Ng2GoogleChartsModule} from 'ng2-google-charts';
             {path: 'user/:userId', component: UserFlightsComponent, canActivate: [AuthGuard]},
             {path: 'user/:userId/boarding-passes', component: UserFlightsBoardingPassesComponent, canActivate: [AuthGuard]},
             {path: 'user/:userId/map', component: UserFlightsMapComponent, canActivate: [AuthGuard]},
+            {path: 'user/:userId/overview', component: UserFlightsComponent, canActivate: [AuthGuard]},
             {path: 'user/:userId/stats', component: UserFlightsStatsComponent, canActivate: [AuthGuard]},
             {path: 'user/:userId/table', component: UserFlightsTableComponent, canActivate: [AuthGuard]},
             {path: '', redirectTo: '/home', pathMatch: 'full'}
