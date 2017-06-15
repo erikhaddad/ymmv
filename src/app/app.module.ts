@@ -49,10 +49,11 @@ import {LayoutService} from './common/layout.service';
         FlexLayoutModule,
         BrowserAnimationsModule,
 
-        AuthModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
         AngularFireAuthModule,
+
+        AuthModule,
 
         NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=' + environment.google.apiKey}),
 

@@ -18,6 +18,9 @@ import {UserFlightsBoardingPassesComponent} from '../user-flights-boarding-passe
 import {SetFlightComponent} from '../set-flight/set-flight.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
+import {ChartsModule} from 'ng2-charts/ng2-charts';
+import {Ng2GoogleChartsModule} from 'ng2-google-charts';
+
 // import {QRCodeModule} from 'angular2-qrcode';
 
 @NgModule({
@@ -44,6 +47,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         ReactiveFormsModule,
         FlexLayoutModule,
         MaterialModule,
+        ChartsModule,
+        Ng2GoogleChartsModule,
         // QRCodeModule,
         NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=' + environment.google.apiKey})
     ],

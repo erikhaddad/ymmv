@@ -185,19 +185,18 @@ export class UserFlightsComponent implements OnInit {
         event.target.panTo(event.latLng);
     }
     populateMap() {
-        const that = this;
-        _.forEach(this.userFlights, function (flight, key) {
+        _.forEach(this.userFlights, (flight, key) => {
             // console.log(flight);
 
-            const airportOrigin = that.getAirportByCode(flight.departure.airport),
-                airportDestination = that.getAirportByCode(flight.arrival.airport);
+            const airportOrigin = this.getAirportByCode(flight.departure.airport),
+                airportDestination = this.getAirportByCode(flight.arrival.airport);
 
             // console.log(airportOrigin);
             if (airportOrigin != null) {
                 const originLatitude = Number.parseFloat(airportOrigin.latitude),
                     originLongitude = Number.parseFloat(airportOrigin.longitude);
 
-                that.mapConfig.markers.push(
+                this.mapConfig.markers.push(
                     {
                         id: key + '-origin',
                         position: {
@@ -215,7 +214,7 @@ export class UserFlightsComponent implements OnInit {
                 const destinationLatitude = Number.parseFloat(airportDestination.latitude),
                     destinationLongitude = Number.parseFloat(airportDestination.longitude);
 
-                that.mapConfig.markers.push(
+                this.mapConfig.markers.push(
                     {
                         id: key + '-destination',
                         position: {
@@ -235,7 +234,7 @@ export class UserFlightsComponent implements OnInit {
                     destinationLatitude = Number.parseFloat(airportDestination.latitude),
                     destinationLongitude = Number.parseFloat(airportDestination.longitude);
 
-                that.mapConfig.polylines.push(
+                this.mapConfig.polylines.push(
                     {
                         id: key + '-path',
                         paths: [
