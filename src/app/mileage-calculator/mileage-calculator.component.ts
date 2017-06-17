@@ -34,12 +34,11 @@ export class MileageCalculatorComponent implements OnInit {
     };
 
     airportsForm: FormGroup;
-
     airportCtrl: FormControl;
-    filteredAirports: any;
 
     airports$: FirebaseListObservable<IAirport[]>;
     airports: IAirport[];
+    filteredAirports: any;
 
     constructor(public dataService: DataService,
                 public layoutService: LayoutService,
@@ -204,9 +203,6 @@ export class MileageCalculatorComponent implements OnInit {
         }
     }
 
-    onClick(evt: Event) {
-        console.log('click');
-    }
 
     getAirportByCode(code: string): IAirport {
         return _.find(this.airports, {'code': code ? code.toUpperCase() : ''});
@@ -245,6 +241,9 @@ export class MileageCalculatorComponent implements OnInit {
         return estimation || 0;
     }
 
+    onClick(evt: Event) {
+        console.log('click');
+    }
 
     onMapReady(map) {
         /*

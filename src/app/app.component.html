@@ -1,14 +1,13 @@
 <div class="app-toolbar-container">
   <md-toolbar class="mat-elevation-z6" color="primary" *ngIf="showToolbar">
     <div class="lockup" fxLayout="row" fxLayoutAlign="start center">
-      <button md-icon-button (click)="toggleSidenav($event)">
+      <button md-icon-button (click)="toggleSidenav($event)" *ngIf="isMobile">
         <md-icon>menu</md-icon>
       </button>
 
       <a routerLink="/" fxLayout="row" fxLayoutAlign="start center">
-        <!--
-        <md-icon class="lockup-logo">local_airport</md-icon>
-        -->
+        <md-icon class="lockup-logo" *ngIf="!isMobile">local_airport</md-icon>
+
         <span class="lockup-text">
             <span class="lockup-brand lockup-brand-sm">YMMV</span>
             <span class="lockup-brand lockup-brand-lg">Your Mileage May Vary</span>
@@ -30,8 +29,8 @@
 
 <md-sidenav-container class="app-sidenav-container" [class.hasToolbar]="showToolbar">
   <md-sidenav #pages class="app-sidenav app-sidenav-left" fxLayout="column"
-              mode="{{layoutService.mobileWidthState ? 'over' : 'side'}}"
-              opened="{{!layoutService.mobileWidthState || layoutService.navShowState}}">
+              mode="{{isMobile ? 'over' : 'side'}}"
+              opened="{{layoutService.sectionId != 'home' && (!isMobile || showNav)}}">
     <md-nav-list fxFlex *ngIf="authUser">
       <a md-list-item
          *ngFor="let navItem of navItems"
@@ -59,8 +58,8 @@
   </md-sidenav>
 </md-sidenav-container>
 
-<span class="app-action" *ngIf="showFab">
-  <button class="app-fab-button" md-fab>
+<span class="app-action" *ngIf="!isMobile && showFab">
+  <button class="app-fab-button" md-fab (click)="openAddFlightDialog($event)">
     <md-icon>add</md-icon>
   </button>
 </span>

@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
 import {NgServiceWorker, ServiceWorkerModule} from '@angular/service-worker';
@@ -28,10 +28,12 @@ import {SignInModule} from './sign-in/sign-in.module';
 import {UserFlightsModule} from './user-flights/user-flights.module';
 import {MileageCalculatorModule} from './mileage-calculator/mileage-calculator.module';
 import {LayoutService} from './common/layout.service';
+import {SetFlightDialogComponent} from './set-flight-dialog/set-flight-dialog.component';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        SetFlightDialogComponent
     ],
     imports: [
         BrowserModule.withServerTransition({appId: 'ymmv'}),
@@ -44,10 +46,12 @@ import {LayoutService} from './common/layout.service';
         ]),
         HttpModule,
         FormsModule,
+        ReactiveFormsModule,
         ServiceWorkerModule,
+        BrowserAnimationsModule,
+
         MaterialModule,
         FlexLayoutModule,
-        BrowserAnimationsModule,
 
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
@@ -62,7 +66,8 @@ import {LayoutService} from './common/layout.service';
         MileageCalculatorModule
     ],
     providers: [LayoutService],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [SetFlightDialogComponent]
 })
 
 export class AppModule {
@@ -70,7 +75,7 @@ export class AppModule {
         sw.registerForPush({
             'applicationServerKey': environment.webpush
         }).subscribe(sub => {
-            console.log(sub.toJSON());
+            console.log(sub.toJSON()); // subscription object, to store in Firebase
         });
 
         sw.push.subscribe(msg => {

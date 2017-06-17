@@ -10,6 +10,10 @@
       <img class="logo" src="/assets/images/AirAsia.svg" *ngSwitchCase="'AK'" alt="Air Asia" />
       <img class="logo" src="/assets/images/Delta_Airlines.svg" *ngSwitchCase="'DL'" alt="Delta Airlines" />
       <img class="logo" src="/assets/images/Asiana_Airlines.svg" *ngSwitchCase="'OZ'" alt="Asiana Airlines" />
+      <img class="logo" src="/assets/images/Swiss_Airlines.svg" *ngSwitchCase="'LX'" alt="Swiss Airlines" />
+      <img class="logo" src="/assets/images/Avianca_Airlines.svg" *ngSwitchCase="'AV'" alt="Avianca Airlines" />
+      <img class="logo" src="/assets/images/American_Airlines.svg" *ngSwitchCase="'AA'" alt="American Airlines" />
+      <img class="logo" src="/assets/images/Scandinavian_Airlines.svg" *ngSwitchCase="'SK'" alt="Scandinavian Airlines" />
     </div>
 
     <div class="flight">
@@ -31,7 +35,7 @@
       <strong>{{ arrival.code }}</strong>
     </div>
     <svg class="airplane">
-      <use xlink:href="#airplane"></use>
+      <use [attr.xlink:href]="'#airplane'"></use>
     </svg>
   </section>
 
@@ -88,4 +92,15 @@
     <qr-code class="qrcode" [value]="'https://ymmv.flights/flights/' + user.id + '/boarding-passes'" [size]="80"></qr-code>
     -->
   </section>
+
+  <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
+    <symbol id="airplane" viewBox="243.5 245.183 25 21.633">
+      <g>
+        <path fill="#336699" d="M251.966,266.816h1.242l6.11-8.784l5.711,0.2c2.995-0.102,3.472-2.027,3.472-2.308
+                            c0-0.281-0.63-2.184-3.472-2.157l-5.711,0.2l-6.11-8.785h-1.242l1.67,8.983l-6.535,0.229l-2.281-3.28h-0.561v3.566
+                            c-0.437,0.257-0.738,0.724-0.757,1.266c-0.02,0.583,0.288,1.101,0.757,1.376v3.563h0.561l2.281-3.279l6.535,0.229L251.966,266.816z
+                            "/>
+      </g>
+    </symbol>
+  </svg>
 </div>

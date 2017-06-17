@@ -1,0 +1,14 @@
+.data-table-card {
+  margin: 16px auto;
+  max-width: 1200px;
+}
+
+ng2-md-datatable-column.sortable span::before {
+  font-family: 'Material Icons Extended' !important;
+}
+
+@media only screen and (max-width: 1024px) {
+  ng2-md-datatable-row span {
+    display: none;
+  }
+}

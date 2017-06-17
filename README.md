@@ -251,6 +251,10 @@ firebase deploy
 ./deploy.sh
 ```
 
+**To see script output and service worker state**
+[http://localhost:4200/ngsw.log](http://localhost:4200/ngsw.log)
+[http://localhost:4200/ngsw-manifest.json](http://localhost:4200/ngsw-manifest.json)
+
 
 **References** 
 

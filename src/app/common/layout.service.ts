@@ -32,26 +32,34 @@ export class LayoutService implements OnInit, OnDestroy {
 
     constructor(public media: ObservableMedia) {
         this.activeMediaQuery = '';
+
+        // Defaults
+        this.toolbarShowState = false;
+        this.navShowState = false;
+        this.fabShowState = false;
+
         this.watcher = media.subscribe((change: MediaChange) => {
             this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
             if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
-                this._mobileWidthState = true;
+                this.setMobile();
             }
         });
-
-        this._toolbarShowState = false;
-        this._navShowState = false;
-        this._fabShowState = false;
     }
 
     ngOnInit() {
         if (this.media.isActive('xs') && this.media.isActive(SCREEN_MOBILE)) {
-            this._mobileWidthState = true;
+            this.setMobile();
         }
     }
 
     ngOnDestroy() {
         this.watcher.unsubscribe();
+    }
+
+    setMobile() {
+        this.mobileWidthState = true;
+        this.navShowState = false;
+        this.fabShowState = false;
     }
 
     // Service message commands

@@ -126,3 +126,17 @@
     display: none;
   }
 }
+
+.cdk-overlay-container {
+  .mat-dialog-container {
+    padding: 0;
+  }
+  .mat-dialog-content {
+    margin: 0;
+    padding: 12px 24px;
+  }
+  .mat-dialog-actions:last-child {
+    margin-bottom: 0;
+    padding: 12px 24px;
+  }
+}

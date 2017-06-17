@@ -12,7 +12,10 @@ ng build --prod --aot
                                   --out dist/index.html
 
 # Generate a SW manifest from our app
-./node_modules/.bin/ngu-sw-manifest --module src/app/app.module.ts \
+#./node_modules/.bin/ngu-sw-manifest --module src/app/app.module.ts \
+#                                    --out dist/ngsw-manifest.json
+
+./node_modules/.bin/ngu-sw-manifest --in src/ngsw-manifest.json \
                                     --out dist/ngsw-manifest.json
 
 # Copy prebuilt worker into our site

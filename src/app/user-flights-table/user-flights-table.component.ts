@@ -1,19 +1,32 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {
+    Component, EventEmitter, OnInit,
+    AfterViewInit, Output, ViewEncapsulation, ViewChild, OnDestroy
+} from '@angular/core';
 import {DataService} from '../common/data.service';
 import {FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database';
 import {Airport, Flight, IAirline, IAirport, IFlight, IUser} from '../common/data-model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
 
+import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import 'rxjs/add/observable/from';
+import 'rxjs/add/operator/takeUntil';
+
 import * as _ from 'lodash';
+import * as moment from 'moment';
+
 import {LayoutService} from '../common/layout.service';
+import {DatatableSortType, IDatatableSortEvent, MdDataTableComponent} from 'ng2-md-datatable';
 
 @Component({
-  selector: 'app-user-flights-table',
-  templateUrl: './user-flights-table.component.html',
-  styleUrls: ['./user-flights-table.component.scss']
+    selector: 'app-user-flights-table',
+    templateUrl: './user-flights-table.component.html',
+    styleUrls: ['./user-flights-table.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
-export class UserFlightsTableComponent implements OnInit {
+export class UserFlightsTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
     paramSubscription: any;
     userId: string;
@@ -32,6 +45,12 @@ export class UserFlightsTableComponent implements OnInit {
 
     userFlights$: FirebaseListObservable<IFlight[]>;
     userFlights: IFlight[];
+
+    currentSortBy: string | undefined;
+    currentSortType = DatatableSortType.None;
+    @ViewChild(MdDataTableComponent) datatable: MdDataTableComponent;
+
+    private unmount$: Subject<void> = new Subject<void>();
 
     constructor(public dataService: DataService,
                 public authService: AuthService,
@@ -85,7 +104,7 @@ export class UserFlightsTableComponent implements OnInit {
                     if (flights) {
                         // this.userFlights = _.orderBy(flights, 'timestamp', 'asc');
 
-                        this.userFlights = _.orderBy(flights, function (flight) {
+                        this.userFlights = _.orderBy(flights, (flight) => {
                             return flight.departure.datetime;
                         });
                     } else {
@@ -99,6 +118,23 @@ export class UserFlightsTableComponent implements OnInit {
         });
     }
 
+    ngAfterViewInit() {
+        if (this.userFlights) {
+            Observable.from(this.datatable.sortChange)
+                .takeUntil(this.unmount$)
+                .subscribe((e: IDatatableSortEvent) => this.sortFlights(e.sortBy, e.sortType));
+        }
+    }
+
+    ngOnDestroy() {
+        this.unmount$.next();
+        this.unmount$.complete();
+    }
+
+    sortFlights(sortBy: string, sortType: DatatableSortType) {
+        this.userFlights = _.orderBy(this.userFlights, sortBy, (sortType === 2) ? 'desc' : 'asc');
+    }
+
     editFlight(flight: IFlight, evt: Event) {
 
     }
@@ -109,5 +145,14 @@ export class UserFlightsTableComponent implements OnInit {
 
     getAirlineByCode(code: string): IAirline {
         return _.find(this.airlines, {'iata': code});
+    }
+
+    getFormattedDate(datetime: string) {
+        // return moment(datetime).format('ddd, MMM D, YYYY');
+        return moment(datetime).format('MMM D, YYYY');
+    }
+
+    getFormattedTime(datetime: string) {
+        return moment(datetime).format('HH:mm');
     }
 }

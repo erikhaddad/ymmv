@@ -1,0 +1,32 @@
+.set-flight-dialog {
+
+  h1 {
+    margin: 0;
+  }
+
+  .mat-button, .mat-raised-button {
+    text-transform: uppercase;
+  }
+
+  .inputs-row {
+    .mat-icon {
+      color: rgba(0, 0, 0, .24);
+    }
+    .mat-input-placeholder, .mat-select-placeholder {
+      color: rgba(0, 0, 0, .87);
+    }
+    .mat-input-suffix {
+      opacity: 0.24;
+    }
+    .mat-input-container, .mat-select {
+      margin: 0 12px 0 6px;
+    }
+    .mat-input-hint-wrapper md-hint {
+      color: rgba(0, 0, 0, .54);
+    }
+    .input-narrow {
+      width: 108px;
+      text-transform: uppercase;
+    }
+  }
+}

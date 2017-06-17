@@ -1,3 +1,25 @@
-<p>
-  user-flights-table works!
-</p>
+<md-card class="data-table-card">
+  <ng2-md-datatable>
+    <ng2-md-datatable-header>
+      <ng2-md-datatable-column sortableValue="departure.datetime">Date</ng2-md-datatable-column>
+      <ng2-md-datatable-column sortableValue="departure.airport">Origin</ng2-md-datatable-column>
+      <ng2-md-datatable-column sortableValue="arrival.airport">Destination</ng2-md-datatable-column>
+      <ng2-md-datatable-column sortableValue="airline">Airline</ng2-md-datatable-column>
+      <ng2-md-datatable-column sortableValue="flightNumber" numeric>Flight</ng2-md-datatable-column>
+      <ng2-md-datatable-column sortableValue="miles" numeric>Miles</ng2-md-datatable-column>
+      <ng2-md-datatable-column sortableValue="cost" numeric>Cost</ng2-md-datatable-column>
+    </ng2-md-datatable-header>
+    <tbody>
+      <ng2-md-datatable-row *ngFor="let flight of userFlights">
+        <td>{{ getFormattedDate(flight.arrival.datetime) }}<span> @ {{ getFormattedTime(flight.arrival.datetime) }}</span></td>
+        <td>{{ flight.departure.airport }}<span> - {{ getAirportByCode(flight.departure.airport).city }}</span></td>
+        <td>{{ flight.arrival.airport }}<span> - {{ getAirportByCode(flight.arrival.airport).city }}</span></td>
+        <td>{{ flight.airline }}<span> - {{ getAirlineByCode(flight.airline).name }}</span></td>
+        <td class="numeric">{{ flight.flightNumber }}</td>
+
+        <td class="numeric">{{ flight.miles | number }}</td>
+        <td class="numeric">${{ flight.cost | number: '1.0-0' }}</td>
+      </ng2-md-datatable-row>
+    </tbody>
+  </ng2-md-datatable>
+</md-card>

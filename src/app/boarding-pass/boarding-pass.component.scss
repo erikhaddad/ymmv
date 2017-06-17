@@ -78,6 +78,15 @@ Boarding Pass
       background: #cfcfcf;
       color: #005daa;
     }
+    &.airline-AV, &.airline-LX {
+      background: #cfcfcf;
+      color: red;
+    }
+    &.airline-SK {
+      background: #cfcfcf;
+      color: darkblue;
+    }
+
     .logo {
       float: left;
       width: 104px;
@@ -88,6 +97,17 @@ Boarding Pass
       width: auto;
       margin-top: 5px;
     }
+    &.airline-AA .logo {
+      height: 26px;
+      width: auto;
+      margin-top: 0;
+    }
+    &.airline-SK .logo {
+      height: 31px;
+      width: auto;
+      margin-top: 0;
+    }
+
     .flight {
       float: right;
       /*color: #fff;*/

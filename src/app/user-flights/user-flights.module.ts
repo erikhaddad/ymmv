@@ -15,18 +15,18 @@ import {UserFlightsStatsComponent} from '../user-flights-stats/user-flights-stat
 import {UserFlightsTableComponent} from '../user-flights-table/user-flights-table.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {UserFlightsBoardingPassesComponent} from '../user-flights-boarding-passes/user-flights-boarding-passes.component';
-import {SetFlightComponent} from '../set-flight/set-flight.component';
+import {SetFlightDialogComponent} from '../set-flight-dialog/set-flight-dialog.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {ChartsModule} from 'ng2-charts/ng2-charts';
 import {Ng2GoogleChartsModule} from 'ng2-google-charts';
+import {MdDataTableModule} from 'ng2-md-datatable';
 
 // import {QRCodeModule} from 'angular2-qrcode';
 
 @NgModule({
     declarations: [
         BoardingPassComponent,
-        SetFlightComponent,
         UserFlightsComponent,
         UserFlightsBoardingPassesComponent,
         UserFlightsMapComponent,
@@ -50,6 +50,7 @@ import {Ng2GoogleChartsModule} from 'ng2-google-charts';
         MaterialModule,
         ChartsModule,
         Ng2GoogleChartsModule,
+        MdDataTableModule,
         // QRCodeModule,
         NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=' + environment.google.apiKey})
     ],

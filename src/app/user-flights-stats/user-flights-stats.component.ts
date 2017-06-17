@@ -187,7 +187,7 @@ export class UserFlightsStatsComponent implements OnInit {
         this.layoutService.sectionId = 'user-flights-stats';
         this.layoutService.handleShowToolbar(true);
         // this.layoutService.handleShowNav(true);
-        this.layoutService.handleShowFab(false);
+        this.layoutService.handleShowFab(true);
 
         this.paramSubscription = this.route.params.subscribe(params => {
             this.userId = params['userId'];
@@ -196,7 +196,7 @@ export class UserFlightsStatsComponent implements OnInit {
             this.user$.subscribe(user => {
                 this.user = user;
 
-                this.layoutService.handleShowFab(this.authUser.id === this.user.id);
+                // this.layoutService.handleShowFab(this.authUser.id === this.user.id);
             });
 
             if (typeof this.userId !== 'undefined') {

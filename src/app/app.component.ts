@@ -1,12 +1,13 @@
 import {Component, ViewEncapsulation} from '@angular/core';
-import {MdIconRegistry} from '@angular/material';
+import {MdDialog, MdIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 
 import {FirebaseObjectObservable} from 'angularfire2/database';
-import {IUser} from './common/data-model';
+import {Flight, IUser} from './common/data-model';
 import {AuthService} from './auth/auth.service';
 import {DataService} from './common/data.service';
 import {LayoutService} from './common/layout.service';
+import {SetFlightDialogComponent} from './set-flight-dialog/set-flight-dialog.component';
 
 @Component({
     selector: 'app-root',
@@ -58,10 +59,13 @@ export class AppComponent {
     showToolbar: boolean;
     showNav: boolean;
     showFab: boolean;
+    isMobile: boolean;
+
 
     constructor(public authService: AuthService,
                 public dataService: DataService,
                 public layoutService: LayoutService,
+                public dialog: MdDialog,
                 iconRegistry: MdIconRegistry,
                 sanitizer: DomSanitizer) {
 
@@ -93,6 +97,11 @@ export class AppComponent {
             show => {
                 this.showFab = show;
             });
+        this.isMobile = layoutService.mobileWidthState;
+        this.layoutService.widthMobileAnnounced$.subscribe(
+            isMobile => {
+                this.isMobile = isMobile;
+            });
 
         /** ICONS **/
         iconRegistry.addSvgIcon(
@@ -122,5 +131,14 @@ export class AppComponent {
 
     toggleSidenav(evt: Event) {
         this.layoutService.handleShowNav(!this.layoutService.navShowState);
+    }
+
+    openAddFlightDialog(evt: Event) {
+        const dialogRef = this.dialog.open(SetFlightDialogComponent);
+        dialogRef.componentInstance.thisFlight = new Flight();
+
+        dialogRef.afterClosed().subscribe(result => {
+            // add new flight to database
+        });
     }
 }

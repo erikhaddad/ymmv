@@ -1,0 +1,149 @@
+<div class="set-flight-dialog">
+  <md-toolbar color="primary">
+    <h1 md-dialog-title fxFlex>Add Flight</h1>
+    <button md-icon-button (click)="close($event)">
+      <md-icon>close</md-icon>
+    </button>
+  </md-toolbar>
+  <form [formGroup]="setFlightForm" (ngSubmit)="onSubmit($event)" novalidate>
+    <div md-dialog-content>
+      <!-- ORIGIN-->
+      <div class="inputs-row" fxLayout="row" fxLayoutAlign="center center">
+        <md-icon>trip_origin</md-icon>
+
+        <md-input-container [floatPlaceholder]="'never'">
+          <input mdInput class="input-narrow"
+                 maxlength="3"
+                 placeholder="from"
+                 autocomplete="off"
+                 formControlName="originAirport">
+          <md-hint align="start">{{ originHintText }}</md-hint>
+        </md-input-container>
+
+        <md-input-container [floatPlaceholder]="'never'">
+          <input mdInput
+                 autocomplete="off"
+                 [mdDatepicker]="originDatePicker"
+                 placeholder="Choose a date"
+                 formControlName="originDate" />
+          <button mdSuffix [mdDatepickerToggle]="originDatePicker"></button>
+          <md-hint align="start">{{ dateFormatHintText }}</md-hint>
+        </md-input-container>
+        <md-datepicker #originDatePicker></md-datepicker>
+
+        <md-input-container [floatPlaceholder]="'never'">
+          <input mdInput
+                 type="time"
+                 autocomplete="off"
+                 formControlName="originTime" />
+          <md-hint align="start">{{ timeFormatHintText }}</md-hint>
+        </md-input-container>
+      </div>
+
+      <!-- DESTINATION -->
+      <div class="inputs-row" fxLayout="row" fxLayoutAlign="center center">
+        <md-icon>place</md-icon>
+
+        <md-input-container [floatPlaceholder]="'never'">
+          <input mdInput
+                 class="input-narrow"
+                 maxlength="3"
+                 placeholder="to"
+                 autocomplete="off"
+                 formControlName="destinationAirport">
+          <md-hint align="start">{{ destinationHintText }}</md-hint>
+        </md-input-container>
+
+        <md-input-container [floatPlaceholder]="'never'">
+          <input mdInput
+                 autocomplete="off"
+                 [mdDatepicker]="destinationDatePicker"
+                 placeholder="Choose a date"
+                 formControlName="destinationDate" />
+          <button mdSuffix [mdDatepickerToggle]="destinationDatePicker"></button>
+          <md-hint align="start">{{ dateFormatHintText }}</md-hint>
+        </md-input-container>
+        <md-datepicker #destinationDatePicker></md-datepicker>
+
+        <md-input-container [floatPlaceholder]="'never'">
+          <input mdInput
+                 type="time"
+                 autocomplete="off"
+                 formControlName="destinationTime" />
+          <md-hint align="start">{{ timeFormatHintText }}</md-hint>
+        </md-input-container>
+      </div>
+
+      <!-- AIRLINE & MILES & COST -->
+      <div class="inputs-row" fxLayout="row" fxLayoutAlign="center center">
+        <md-icon>local_airport</md-icon>
+
+        <md-input-container [floatPlaceholder]="'never'">
+          <input mdInput
+                 class="input-narrow"
+                 maxlength="2"
+                 placeholder="airline"
+                 autocomplete="off"
+                 formControlName="airline" />
+          <md-hint align="start">{{ airlineHintText }}</md-hint>
+        </md-input-container>
+
+        <md-input-container [floatPlaceholder]="'never'">
+          <input mdInput
+                 class="input-narrow"
+                 maxlength="4"
+                 placeholder="flight #"
+                 autocomplete="off"
+                 formControlName="flightNumber" />
+        </md-input-container>
+      </div>
+
+      <div class="inputs-row" fxLayout="row" fxLayoutAlign="center center">
+        <md-icon>flight_takeoff</md-icon>
+        <md-input-container [floatPlaceholder]="'never'">
+          <input mdInput
+                 class="input-narrow"
+                 type="number"
+                 placeholder="miles"
+                 formControlName="miles" />
+        </md-input-container>
+
+        <md-icon>attach_money</md-icon>
+        <md-input-container [floatPlaceholder]="'never'">
+          <input mdInput
+                 class="input-narrow"
+                 type="number"
+                 placeholder="cost"
+                 formControlName="cost" />
+        </md-input-container>
+      </div>
+
+      <div class="inputs-row" fxLayout="row" fxLayoutAlign="center center">
+        <md-icon>business_center</md-icon>
+        <md-select placeholder="seat class"
+                   [floatPlaceholder]="'never'"
+                   formControlName="seatClass"
+                   [(ngModel)]="selectedSeatClass">
+          <md-option *ngFor="let seatClass of seatClasses" [value]="seatClass">{{ seatClass }}</md-option>
+        </md-select>
+
+        <md-icon>beach_access</md-icon>
+        <md-select placeholder="purpose"
+                   [floatPlaceholder]="'never'"
+                   formControlName="purpose"
+                   [(ngModel)]="selectedPurpose">
+          <md-option *ngFor="let purpose of purposes" [value]="purpose">{{ purpose }}</md-option>
+        </md-select>
+      </div>
+    </div>
+
+    <div md-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+      <button md-button type="cancel" (click)="close($event)">
+        Cancel
+      </button>
+      <button md-raised-button type="submit" color="primary" (click)="done($event)" [disabled]="setFlightForm.invalid">
+        Done
+      </button>
+    </div>
+  </form>
+</div>
