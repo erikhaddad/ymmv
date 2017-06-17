@@ -22,6 +22,10 @@ export class AppComponent {
     authUser: IUser|null;
 
     currentPage: string;
+    showToolbar: boolean;
+    showNav: boolean;
+    showFab: boolean;
+    isMobile: boolean;
 
     navItems = [
         {
@@ -56,12 +60,6 @@ export class AppComponent {
         }
     ];
 
-    showToolbar: boolean;
-    showNav: boolean;
-    showFab: boolean;
-    isMobile: boolean;
-
-
     constructor(public authService: AuthService,
                 public dataService: DataService,
                 public layoutService: LayoutService,
@@ -69,7 +67,7 @@ export class AppComponent {
                 iconRegistry: MdIconRegistry,
                 sanitizer: DomSanitizer) {
 
-        this.currentPage = 'stats';
+        this.currentPage = 'home';
 
         this.authUser = null;
         authService.authState$.subscribe(authUser => {
@@ -82,6 +80,11 @@ export class AppComponent {
         });
 
         /** LAYOUT **/
+        this.currentPage = layoutService.sectionId;
+        this.layoutService.sectionIdAnnounced$.subscribe(
+            sectionId => {
+                this.currentPage = sectionId;
+            });
         this.showToolbar = layoutService.toolbarShowState;
         this.layoutService.showToolbarAnnounced$.subscribe(
             show => {

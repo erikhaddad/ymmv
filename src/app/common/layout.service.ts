@@ -6,12 +6,12 @@ import {MediaChange, ObservableMedia} from '@angular/flex-layout';
 const SCREEN_MOBILE = 'screen and (max-width: 600px)';
 
 @Injectable()
-export class LayoutService implements OnInit, OnDestroy {
+export class LayoutService implements OnDestroy {
 
     activeMediaQuery: string;
     watcher: Subscription;
 
-    private _sectionId = 'Home';
+    private _sectionId = 'home';
 
     private _toolbarShowState: boolean;
     private _navShowState: boolean;
@@ -19,12 +19,14 @@ export class LayoutService implements OnInit, OnDestroy {
     private _mobileWidthState: boolean;
 
     // Observable boolean sources
+    private sectionIdAnnouncedSource = new Subject<string>();
     private showNavAnnouncedSource = new Subject<boolean>();
     private showToolbarAnnouncedSource = new Subject<boolean>();
     private showFabAnnouncedSource = new Subject<boolean>();
     private widthMobileAnnouncedSource = new Subject<boolean>();
 
     // Observable boolean streams
+    sectionIdAnnounced$ = this.sectionIdAnnouncedSource.asObservable();
     showToolbarAnnounced$ = this.showToolbarAnnouncedSource.asObservable();
     showNavAnnounced$ = this.showNavAnnouncedSource.asObservable();
     showFabAnnounced$ = this.showFabAnnouncedSource.asObservable();
@@ -34,48 +36,66 @@ export class LayoutService implements OnInit, OnDestroy {
         this.activeMediaQuery = '';
 
         // Defaults
-        this.toolbarShowState = false;
-        this.navShowState = false;
-        this.fabShowState = false;
+        this.handleShowToolbar(false);
+        this.handleWidthMobile(false);
+        this.handleShowNav(false);
+        this.handleShowFab(false);
 
         this.watcher = media.subscribe((change: MediaChange) => {
             this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
+            console.log('constructor', change.mqAlias, change, this.activeMediaQuery);
+
             if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
                 this.setMobile();
+            } else {
+                this.setDesktop();
             }
         });
-    }
-
-    ngOnInit() {
-        if (this.media.isActive('xs') && this.media.isActive(SCREEN_MOBILE)) {
-            this.setMobile();
-        }
     }
 
     ngOnDestroy() {
         this.watcher.unsubscribe();
     }
 
+    setDesktop() {
+        console.log('setDesktop');
+        this.handleShowToolbar(this.sectionId !== 'home' && this.sectionId !== 'landing');
+        this.handleWidthMobile(false);
+        this.handleShowNav(true);
+        // this.handleShowFab(false);
+    }
+
     setMobile() {
-        this.mobileWidthState = true;
-        this.navShowState = false;
-        this.fabShowState = false;
+        console.log('setMobile');
+        this.handleShowToolbar(this.sectionId !== 'home' && this.sectionId !== 'landing');
+        this.handleWidthMobile(true);
+        this.handleShowNav(false);
+        // this.handleShowFab(false);
     }
 
     // Service message commands
+    handleSectionId(sectionId: string) {
+        console.log('handleSectionId', sectionId);
+        this.sectionId = sectionId;
+        this.sectionIdAnnouncedSource.next(sectionId);
+    }
     handleShowToolbar(show: boolean) {
+        console.log('handleShowToolbar', show);
         this.toolbarShowState = show;
         this.showToolbarAnnouncedSource.next(show);
     }
     handleShowNav(show: boolean) {
+        console.log('handleShowNav', show);
         this.navShowState = show;
         this.showNavAnnouncedSource.next(show);
     }
     handleShowFab(show: boolean) {
+        console.log('handleShowFab', show);
         this.fabShowState = show;
         this.showFabAnnouncedSource.next(show);
     }
     handleWidthMobile(isMobile: boolean) {
+        console.log('handleWidthMobile', isMobile);
         this.mobileWidthState = isMobile;
         this.widthMobileAnnouncedSource.next(isMobile);
     }

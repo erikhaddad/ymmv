@@ -73,10 +73,10 @@ export class UserFlightsMapComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.layoutService.sectionId = 'user-flights-map';
+        this.layoutService.handleSectionId('user-flights-map');
         this.layoutService.handleShowToolbar(true);
         // this.layoutService.handleShowNav(true);
-        this.layoutService.handleShowFab(false);
+        // this.layoutService.handleShowFab(false);
 
         this.paramSubscription = this.route.params.subscribe(params => {
             this.userId = params['userId'];

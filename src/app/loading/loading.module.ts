@@ -1,12 +1,8 @@
-import {Component, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
-
-@Component({
-    selector: 'app-loading',
-    template: '<h3>Loading...</h3>'
-})
-export class LoadingComponent {}
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {LoadingComponent} from './loading.component';
 
 @NgModule({
     declarations: [LoadingComponent],
@@ -14,7 +10,8 @@ export class LoadingComponent {}
         CommonModule,
         RouterModule.forChild([
             {path: 'loading', component: LoadingComponent}
-        ])
+        ]),
+        FlexLayoutModule
     ]
 })
 export class LoadingModule {}

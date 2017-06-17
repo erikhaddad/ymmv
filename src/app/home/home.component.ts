@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.layoutService.sectionId = 'home';
+        this.layoutService.handleSectionId('home');
         this.layoutService.handleShowToolbar(false);
         this.layoutService.handleShowNav(false);
         this.layoutService.handleShowFab(false);
