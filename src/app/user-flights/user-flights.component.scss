@@ -286,6 +286,26 @@
   }
 }
 
+@media (max-width: 480px) {
+  ul.timeline {
+    &::before {
+      display: none;
+    }
+    > li {
+      > .timeline-panel {
+        float: right;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      > .timeline-badge {
+        display: none;
+      }
+    }
+  }
+}
+
 /** MAPS **/
 ngui-map.landing {
   height: 30vh;

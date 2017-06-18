@@ -140,8 +140,9 @@ export class AppComponent {
         const dialogRef = this.dialog.open(SetFlightDialogComponent);
         dialogRef.componentInstance.thisFlight = new Flight();
 
-        dialogRef.afterClosed().subscribe(result => {
+        dialogRef.afterClosed().subscribe(flight => {
             // add new flight to database
+            this.dataService.createUserFlight(this.authUser.id, flight);
         });
     }
 }

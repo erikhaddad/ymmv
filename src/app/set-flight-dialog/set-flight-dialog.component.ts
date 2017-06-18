@@ -1,14 +1,15 @@
 import {Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {IAirport, Flight, IAirline} from '../common/data-model';
+import {IAirport, Flight, IAirline, IUser} from '../common/data-model';
 
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 import {MdDialogRef} from '@angular/material';
-import {FirebaseListObservable} from 'angularfire2/database';
+import {FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database';
 import {DataService} from '../common/data.service';
 
 import * as _ from 'lodash';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
     selector: 'app-set-flight-dialog',
@@ -19,6 +20,10 @@ import * as _ from 'lodash';
 export class SetFlightDialogComponent implements OnInit {
 
     thisFlight: Flight;
+
+    authUserId: string;
+    authUser$: FirebaseObjectObservable<IUser>;
+    authUser: IUser;
 
     airports$: FirebaseListObservable<IAirport[]>;
     airports: IAirport[];
@@ -43,6 +48,7 @@ export class SetFlightDialogComponent implements OnInit {
     airportCtrl: FormControl;
 
     constructor(public dataService: DataService,
+                public authService: AuthService,
                 public dialogRef: MdDialogRef<SetFlightDialogComponent>,
                 private fb: FormBuilder) {
 
@@ -75,6 +81,15 @@ export class SetFlightDialogComponent implements OnInit {
         this.filteredAirports = this.airportCtrl.valueChanges
             .startWith(null)
             .map(name => this.filterAirports(name));
+
+        authService.authState$.subscribe(authUser => {
+            this.authUserId = authUser.uid;
+
+            this.authUser$ = dataService.getUser(this.authUserId);
+            this.authUser$.subscribe(user => {
+                this.authUser = user;
+            });
+        });
     }
 
     ngOnInit() {
@@ -207,10 +222,38 @@ export class SetFlightDialogComponent implements OnInit {
 
     onSubmit(evt: Event) {
         const originAirportCode = this.setFlightForm.get('originAirport').value,
-            destinationAirportCode = this.setFlightForm.get('destination').value;
+            originDate = this.setFlightForm.get('originDate').value,
+            originTime = this.setFlightForm.get('originTime').value,
+            destinationAirportCode = this.setFlightForm.get('destinationAirport').value,
+            destinationDate = this.setFlightForm.get('destinationDate').value,
+            destinationTime = this.setFlightForm.get('destinationTime').value,
+            airlineCode = this.setFlightForm.get('airline').value,
+            flightNumber = this.setFlightForm.get('flightNumber').value,
+            miles = this.setFlightForm.get('miles').value,
+            cost = this.setFlightForm.get('cost').value,
+            seatClass = this.setFlightForm.get('seatClass').value,
+            purpose = this.setFlightForm.get('purpose').value;
 
         const originObj = this.getAirportByCode(originAirportCode),
-            destinationObj = this.getAirportByCode(destinationAirportCode);
+            destinationObj = this.getAirportByCode(destinationAirportCode),
+            airlineObj = this.getAirlineByCode(airlineCode);
+
+        this.thisFlight.departure = {
+            airport: originAirportCode,
+            datetime: originDate + originTime
+        };
+        this.thisFlight.arrival = {
+            airport: destinationAirportCode,
+            datetime: destinationDate + destinationTime
+        };
+        this.thisFlight.airline = airlineCode;
+        this.thisFlight.flightNumber = parseInt(flightNumber, 0);
+        this.thisFlight.miles = parseInt(miles, 0);
+        this.thisFlight.cost = parseInt(cost, 0);
+        this.thisFlight.seatClass = seatClass;
+        this.thisFlight.purpose = purpose;
+
+        // this.dataService.createUserFlight(this.authUser.id, this.thisFlight);
 
         this.dialogRef.close(this.thisFlight);
     }

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database';
 import {AuthService} from '../auth/auth.service';
-import {IAirport, IAirline, ICountry, IFare, IUser, IFlight, User} from './data-model';
+import {IAirport, IAirline, ICountry, IFare, IUser, IFlight, User, Flight} from './data-model';
 
 import * as firebase from 'firebase';
 
@@ -84,5 +84,10 @@ export class DataService {
         console.log('user update path', path);
         console.log('user update value', user);
         return this.afd.list(this.usersPath).update(user.$key, user);
+    }
+
+    /** FLIGHTS **/
+    createUserFlight(id: string, flight: Flight): firebase.Promise<any> {
+        return this.afd.list(`${this.userFlightsPath}/${id}`).push(flight);
     }
 }
