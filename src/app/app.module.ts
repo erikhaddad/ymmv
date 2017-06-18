@@ -29,6 +29,7 @@ import {UserFlightsModule} from './user-flights/user-flights.module';
 import {MileageCalculatorModule} from './mileage-calculator/mileage-calculator.module';
 import {LayoutService} from './common/layout.service';
 import {SetFlightDialogComponent} from './set-flight-dialog/set-flight-dialog.component';
+import {LoadingModule} from './loading/loading.module';
 
 @NgModule({
     declarations: [
@@ -40,6 +41,7 @@ import {SetFlightDialogComponent} from './set-flight-dialog/set-flight-dialog.co
         // Application routing
         RouterModule.forRoot([
             {path: 'home', loadChildren: 'app/home/home.module#HomeModule'},
+            {path: 'loading', loadChildren: 'app/loading/loading.module#LoadingModule'},
             {path: 'mileage-calculator', loadChildren: 'app/mileage-calculator/mileage-calculator.module#MileageCalculatorModule'},
             {path: 'user/:userId', loadChildren: 'app/user-flights/user-flights.module#UserFlightsModule'},
             {path: '', redirectTo: '/home', pathMatch: 'full'}
@@ -61,6 +63,7 @@ import {SetFlightDialogComponent} from './set-flight-dialog/set-flight-dialog.co
 
         NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=' + environment.google.apiKey}),
 
+        LoadingModule,
         SignInModule,
         UserFlightsModule,
         MileageCalculatorModule

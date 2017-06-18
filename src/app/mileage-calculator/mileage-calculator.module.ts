@@ -7,6 +7,7 @@ import {MaterialModule} from '../material/material.module';
 
 import {NguiMapModule} from '@ngui/map';
 import {environment} from '../../environments/environment';
+import {DataService} from '../common/data.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
@@ -28,3 +29,5 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 })
 export class MileageCalculatorModule {
 }
+
+export {DataService};

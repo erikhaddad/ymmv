@@ -9,7 +9,8 @@ import {LoadingComponent} from './loading.component';
     imports: [
         CommonModule,
         RouterModule.forChild([
-            {path: 'loading', component: LoadingComponent}
+            {path: 'loading', component: LoadingComponent},
+            {path: '', redirectTo: '/home', pathMatch: 'full'}
         ]),
         FlexLayoutModule
     ]

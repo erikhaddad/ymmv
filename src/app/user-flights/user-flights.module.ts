@@ -60,3 +60,5 @@ import {MdDataTableModule} from 'ng2-md-datatable';
 })
 export class UserFlightsModule {
 }
+
+export {DataService};
