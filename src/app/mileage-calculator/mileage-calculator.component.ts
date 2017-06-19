@@ -65,10 +65,10 @@ export class MileageCalculatorComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.layoutService.sectionId = 'mileage-calculator';
+        this.layoutService.handleSectionId('mileage-calculator');
         this.layoutService.handleShowToolbar(true);
-        this.layoutService.handleShowNav(true);
-        this.layoutService.handleShowFab(false);
+        // this.layoutService.handleShowNav(true);
+        // this.layoutService.handleShowFab(false);
     }
 
     airportMatcher(control: FormControl, key: string): {[key: string]: boolean} {

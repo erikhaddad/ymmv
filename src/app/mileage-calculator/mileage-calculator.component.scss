@@ -87,3 +87,21 @@ ngui-map.mileage-map {
     opacity: 0;
   }
 }
+
+
+@media only screen and (max-width: 600px) {
+  .calculator-inputs {
+    .inputs-row {
+      .inputs-spacer {
+        height: 48px;
+        width: 64px;
+
+        .airplane {
+          position: absolute;
+          width: 64px;
+          height: 28px;
+        }
+      }
+    }
+  }
+}
