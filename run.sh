@@ -6,10 +6,10 @@ set -x
 ng build --prod
 
 # Generate a new index.html with an app shell
-./node_modules/.bin/ngu-app-shell --module src/app/app.module.ts \
-                                  --url /loading \
-                                  --insert-module src/app/loading/loading.module.ts \
-                                  --out dist/index.html
+#./node_modules/.bin/ngu-app-shell --module src/app/app.module.ts \
+#                                  --url /loading \
+#                                  --insert-module src/app/loading/loading.module.ts \
+#                                  --out dist/index.html
 
 # Generate a SW manifest from our app
 #./node_modules/.bin/ngu-sw-manifest --module src/app/app.module.ts \

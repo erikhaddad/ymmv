@@ -89,7 +89,7 @@ export class UserFlightsStatsComponent implements OnInit {
 
 
     public lineChartDataHeader: Array<any> = [
-        {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'}
+        {data: [], label: 'Miles per trip'}
     ];
     public lineChartOptionsHeader: any = {
         responsive: true,
@@ -113,6 +113,14 @@ export class UserFlightsStatsComponent implements OnInit {
         }
     };
     public lineChartColorsHeader: Array<any> = [
+        { // green
+            backgroundColor: 'rgba(75, 192, 192,0.2)',
+            borderColor: 'rgba(75, 192, 192,1)',
+            pointBackgroundColor: 'rgba(75, 192, 192,1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(75, 192, 192,0.8)'
+        },
         { // orange
             backgroundColor: 'rgba(255, 152, 0, 0.2)',
             borderColor: 'rgba(255, 152, 0,1)',
@@ -546,7 +554,20 @@ export class UserFlightsStatsComponent implements OnInit {
     }
 
     populateCharts () {
+        const labels = [];
+        const costData = [];
+        const milesData = [];
 
+        _.forEach(this.userFlights, (flight, key) => {
+            costData.push(flight.cost);
+            milesData.push(flight.miles);
+            labels.push('');
+        });
+
+        this.lineChartLabelsHeader = labels;
+        this.lineChartDataHeader = [];
+        this.lineChartDataHeader.push({data: costData, label: 'Cost per trip'});
+        this.lineChartDataHeader.push({data: milesData, label: 'Miles per trip'});
     }
 
     // events
