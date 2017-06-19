@@ -59,15 +59,15 @@ export class LayoutService implements OnDestroy {
 
     setDesktop() {
         this.handleShowToolbar(this.sectionId !== 'home' && this.sectionId !== 'landing');
+        this.handleShowNav(this.sectionId !== 'home' && this.sectionId !== 'landing');
         this.handleWidthMobile(false);
-        this.handleShowNav(true);
         // this.handleShowFab(false);
     }
 
     setMobile() {
         this.handleShowToolbar(this.sectionId !== 'home' && this.sectionId !== 'landing');
-        this.handleWidthMobile(true);
         this.handleShowNav(false);
+        this.handleWidthMobile(true);
         // this.handleShowFab(false);
     }
 
@@ -75,6 +75,9 @@ export class LayoutService implements OnDestroy {
     handleSectionId(sectionId: string) {
         this.sectionId = sectionId;
         this.sectionIdAnnouncedSource.next(sectionId);
+
+        this.handleShowToolbar(this.sectionId !== 'home' && this.sectionId !== 'landing');
+        this.handleShowNav(this.sectionId !== 'home' && this.sectionId !== 'landing');
     }
     handleShowToolbar(show: boolean) {
         this.toolbarShowState = show;

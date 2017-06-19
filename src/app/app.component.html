@@ -20,7 +20,15 @@
         <md-icon>notifications_none</md-icon>
       </button>
 
-      <button md-icon-button class="logged-in-user-button">
+      <a md-icon-button
+         mdTooltip="See demo data" mdTooltipPosition="below"
+         [routerLink]="['/user/Vi9af3PvpqYnLM1dECoywtz6vV73']">
+        <md-icon>present_to_all</md-icon>
+      </a>
+
+      <button md-icon-button
+              mdTooltip="Logout" mdTooltipPosition="below"
+              class="logged-in-user-button" (click)="logout($event)">
         <img class="logged-in-user-avatar" [src]="authUser.avatar" alt="Logged in user avatar" />
       </button>
     </div>
@@ -29,8 +37,8 @@
 
 <md-sidenav-container class="app-sidenav-container" [class.hasToolbar]="showToolbar">
   <md-sidenav #pages class="app-sidenav app-sidenav-left" fxLayout="column"
-              mode="{{isMobile ? 'over' : 'side'}}"
-              opened="{{showNav}}">
+              mode="{{ isMobile ? 'over' : 'side' }}"
+              opened="{{ showNav }}">
     <md-nav-list *ngIf="authUser">
       <a md-list-item
          *ngFor="let navItem of navItems"

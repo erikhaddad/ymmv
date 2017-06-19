@@ -2,46 +2,46 @@
   "rules": {
     "airlines": {
       ".read": true,
-      ".write": "auth != null",
+      ".write": false,
       ".indexOn": ["iata"]
     },
     "airports": {
       ".read": true,
-      ".write": "auth != null",
+      ".write": false,
       ".indexOn": ["code"]
     },
     "countries": {
       ".read": true,
-      ".write": "auth != null",
+      ".write": false,
       ".indexOn": ["code"]
     },
     "fares": {
       ".read": true,
-      ".write": "auth != null"
+      ".write": false
     },
     "loyalty": {
       ".read": true,
-      ".write": "auth != null"
+      ".write": false
     },
     "meals": {
       ".read": true,
-      ".write": "auth != null"
+      ".write": false
     },
     "user-flights": {
       "$userId": {
-        ".read": "auth != null && auth.uid == $userId",
+        ".read": "auth != null",
         ".write": "auth != null && auth.uid == $userId"
       }
     },
     "user-stats": {
       "$userId": {
-        ".read": "auth != null && auth.uid == $userId",
+        ".read": "auth != null",
         ".write": "auth != null && auth.uid == $userId"
       }
     },
     "users": {
       "$userId": {
-        ".read": "auth != null && auth.uid == $userId",
+        ".read": "auth != null",
         ".write": "auth != null && auth.uid == $userId"
       }
     }

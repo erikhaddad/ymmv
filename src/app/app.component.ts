@@ -8,6 +8,7 @@ import {AuthService} from './auth/auth.service';
 import {DataService} from './common/data.service';
 import {LayoutService} from './common/layout.service';
 import {SetFlightDialogComponent} from './set-flight-dialog/set-flight-dialog.component';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -64,6 +65,7 @@ export class AppComponent {
                 public dataService: DataService,
                 public layoutService: LayoutService,
                 public dialog: MdDialog,
+                private router: Router,
                 iconRegistry: MdIconRegistry,
                 sanitizer: DomSanitizer) {
 
@@ -144,5 +146,10 @@ export class AppComponent {
             // add new flight to database
             this.dataService.createUserFlight(this.authUser.id, flight);
         });
+    }
+
+    logout(evt: Event): void {
+        this.authService.signOut();
+        this.router.navigate(['home']);
     }
 }

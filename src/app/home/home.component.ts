@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
                 public layoutService: LayoutService,
                 private router: Router) {
 
-
         this.authUser = null;
         authService.authState$.subscribe(authUser => {
             if (authUser != null) {
