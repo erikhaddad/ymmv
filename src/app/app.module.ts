@@ -5,8 +5,6 @@ import {HttpModule} from '@angular/http';
 
 import {NgServiceWorker, ServiceWorkerModule} from '@angular/service-worker';
 
-import * as hammerjs from 'hammerjs';
-
 import {environment} from '../environments/environment';
 
 import {FlexLayoutModule} from '@angular/flex-layout';

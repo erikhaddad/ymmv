@@ -14,6 +14,7 @@
       <img class="logo" src="/assets/images/Avianca_Airlines.svg" *ngSwitchCase="'AV'" alt="Avianca Airlines" />
       <img class="logo" src="/assets/images/American_Airlines.svg" *ngSwitchCase="'AA'" alt="American Airlines" />
       <img class="logo" src="/assets/images/Scandinavian_Airlines.svg" *ngSwitchCase="'SK'" alt="Scandinavian Airlines" />
+      <img class="logo" src="/assets/images/LOT_Polish_Airlines.svg" *ngSwitchCase="'LO'" alt="LOT Polish Airlines" />
     </div>
 
     <div class="flight">
@@ -61,7 +62,7 @@
     <div class="times">
       <div class="box">
         <small>Boarding</small>
-        <strong>11:05</strong>
+        <strong>{{ getFormattedBoardingTime(flight.departure.datetime) }}</strong>
       </div>
       <div class="box">
         <small>Departure</small>
@@ -69,7 +70,7 @@
       </div>
       <div class="box">
         <small>Duration</small>
-        <strong>2:15</strong>
+        <strong>{{ getFormattedDuration(flight.departure.datetime, flight.arrival.datetime) }}</strong>
       </div>
       <div class="box">
         <small>Arrival</small>
@@ -88,9 +89,7 @@
         <strong>{{ getFormattedDate(flight.departure.datetime) }}</strong>
       </div>
     </div>
-    <!--
-    <qr-code class="qrcode" [value]="'https://ymmv.flights/flights/' + user.id + '/boarding-passes'" [size]="80"></qr-code>
-    -->
+    <qr-code class="qrcode" [value]="'https://ymmv.flights/user/' + user.id + '/boarding-passes'" [size]="80"></qr-code>
   </section>
 
   <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">

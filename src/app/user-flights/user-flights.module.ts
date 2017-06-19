@@ -22,7 +22,7 @@ import {ChartsModule} from 'ng2-charts/ng2-charts';
 import {Ng2GoogleChartsModule} from 'ng2-google-charts';
 import {MdDataTableModule} from 'ng2-md-datatable';
 
-// import {QRCodeModule} from 'angular2-qrcode';
+import {QRCodeModule} from 'angular2-qrcode';
 
 @NgModule({
     declarations: [
@@ -51,7 +51,7 @@ import {MdDataTableModule} from 'ng2-md-datatable';
         ChartsModule,
         Ng2GoogleChartsModule,
         MdDataTableModule,
-        // QRCodeModule,
+        QRCodeModule,
         NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=' + environment.google.apiKey})
     ],
     providers: [

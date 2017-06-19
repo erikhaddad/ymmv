@@ -29,4 +29,27 @@ export class BoardingPassComponent implements OnInit {
     getFormattedTime(datetime: string) {
         return moment(datetime).format('HH:mm');
     }
+
+    getFormattedBoardingTime(datetime: string) {
+        const boardingPeriod = moment.duration('00:30:00');
+        return moment(datetime).subtract(boardingPeriod).format('HH:mm');
+    }
+
+    getFormattedDuration(start: string, end: string) {
+        let durationString = '';
+        const duration = moment.duration(moment(end).diff(moment(start)));
+        const hours = duration.hours(),
+            minutes = duration.minutes();
+
+        if (hours < 10) {
+            durationString += '0';
+        }
+        durationString += hours + ':';
+        if (minutes < 10) {
+            durationString += '0';
+        }
+        durationString += minutes;
+
+        return durationString;
+    }
 }

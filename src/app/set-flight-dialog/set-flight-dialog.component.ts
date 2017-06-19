@@ -9,6 +9,8 @@ import {FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/dat
 import {DataService} from '../common/data.service';
 
 import * as _ from 'lodash';
+import * as moment from 'moment';
+
 import {AuthService} from '../auth/auth.service';
 
 @Component({
@@ -235,18 +237,38 @@ export class SetFlightDialogComponent implements OnInit {
             purpose = this.setFlightForm.get('purpose').value;
 
         const originObj = this.getAirportByCode(originAirportCode),
-            destinationObj = this.getAirportByCode(destinationAirportCode),
-            airlineObj = this.getAirlineByCode(airlineCode);
+            destinationObj = this.getAirportByCode(destinationAirportCode);
+
+        // Example: 2017-03-21T21:15:00+02:00
+        const originTimezoneOffsetMins = Number(originObj.timezone) * 60;
+        const destinationTimezoneOffsetMins = Number(destinationObj.timezone) * 60;
+        const datetimeFormat = 'YYYY-MM-DDTHH:mm:ssZZ';
+
+        const originDateFormatted = moment(originDate).format('YYYY-MM-DD'),
+            originTimeFormatted = originTime + ':00',
+            destinationDateFormatted = moment(originDate).format('YYYY-MM-DD'),
+            destinationTimeFormatted = destinationTime + ':00';
+
+        const compOrigin = originDateFormatted + 'T' + originTimeFormatted + 'Z',
+            compDestination = destinationDateFormatted + 'T' + destinationTimeFormatted + 'Z';
+
+        const originDatetimeFormatted = moment(compOrigin)
+            .utcOffset(originTimezoneOffsetMins, true)
+            .format(datetimeFormat);
+
+        const destinationDatetimeFormatted = moment(compDestination)
+            .utcOffset(destinationTimezoneOffsetMins, true)
+            .format(datetimeFormat);
 
         this.thisFlight.departure = {
-            airport: originAirportCode,
-            datetime: originDate + originTime
+            airport: originAirportCode.toUpperCase(),
+            datetime: originDatetimeFormatted
         };
         this.thisFlight.arrival = {
-            airport: destinationAirportCode,
-            datetime: destinationDate + destinationTime
+            airport: destinationAirportCode.toUpperCase(),
+            datetime: destinationDatetimeFormatted
         };
-        this.thisFlight.airline = airlineCode;
+        this.thisFlight.airline = airlineCode.toUpperCase();
         this.thisFlight.flightNumber = parseInt(flightNumber, 0);
         this.thisFlight.miles = parseInt(miles, 0);
         this.thisFlight.cost = parseInt(cost, 0);
@@ -254,6 +276,8 @@ export class SetFlightDialogComponent implements OnInit {
         this.thisFlight.purpose = purpose;
 
         // this.dataService.createUserFlight(this.authUser.id, this.thisFlight);
+
+        // console.log('created this new flight', this.thisFlight);
 
         this.dialogRef.close(this.thisFlight);
     }

@@ -4,6 +4,12 @@
       "/": {
         "match": true
       },
+      "/loading": {
+        "match": "prefix"
+      },
+      "/home": {
+        "match": "prefix"
+      },
       "/user": {
         "match": "prefix"
       },

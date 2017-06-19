@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import * as hammerjs from 'hammerjs';
 
 import {
     MdAutocompleteModule,
