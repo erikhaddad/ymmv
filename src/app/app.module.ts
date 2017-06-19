@@ -78,7 +78,7 @@ export class AppModule {
         sw.registerForPush({
             'applicationServerKey': environment.webpush
         }).subscribe(sub => {
-            console.log(sub.toJSON()); // subscription object, to store in Firebase
+            console.log('push subscription info', sub.toJSON()); // subscription object, to store in Firebase
         });
 
         sw.push.subscribe(msg => {

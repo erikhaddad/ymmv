@@ -81,7 +81,7 @@ export class UserFlightsBoardingPassesComponent implements OnInit {
                 this.userFlights$ = this.dataService.getUserFlights(this.userId);
 
                 this.userFlights$.subscribe(flights => {
-                    console.log('returned flights', flights);
+                    // console.log('returned flights', flights);
 
                     if (flights) {
                         // this.userFlights = _.orderBy(flights, 'timestamp', 'asc');
@@ -92,7 +92,7 @@ export class UserFlightsBoardingPassesComponent implements OnInit {
                     } else {
                         this.userFlights = [];
                     }
-                    console.log('user flights', this.userFlights);
+                    // console.log('user flights', this.userFlights);
                 });
             } else {
                 this.router.navigate(['/home']);

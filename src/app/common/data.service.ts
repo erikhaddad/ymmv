@@ -81,8 +81,6 @@ export class DataService {
     }
     updateUser(user: IUser): firebase.Promise<any> {
         const path = this.usersPath + '/' + user.$key;
-        console.log('user update path', path);
-        console.log('user update value', user);
         return this.afd.list(this.usersPath).update(user.$key, user);
     }
 

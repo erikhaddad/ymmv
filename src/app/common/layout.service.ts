@@ -43,7 +43,7 @@ export class LayoutService implements OnDestroy {
 
         this.watcher = media.subscribe((change: MediaChange) => {
             this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
-            console.log('constructor', change.mqAlias, change, this.activeMediaQuery);
+            // console.log('constructor', change.mqAlias, change, this.activeMediaQuery);
 
             if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
                 this.setMobile();
@@ -58,7 +58,6 @@ export class LayoutService implements OnDestroy {
     }
 
     setDesktop() {
-        console.log('setDesktop');
         this.handleShowToolbar(this.sectionId !== 'home' && this.sectionId !== 'landing');
         this.handleWidthMobile(false);
         this.handleShowNav(true);
@@ -66,7 +65,6 @@ export class LayoutService implements OnDestroy {
     }
 
     setMobile() {
-        console.log('setMobile');
         this.handleShowToolbar(this.sectionId !== 'home' && this.sectionId !== 'landing');
         this.handleWidthMobile(true);
         this.handleShowNav(false);
@@ -75,27 +73,22 @@ export class LayoutService implements OnDestroy {
 
     // Service message commands
     handleSectionId(sectionId: string) {
-        console.log('handleSectionId', sectionId);
         this.sectionId = sectionId;
         this.sectionIdAnnouncedSource.next(sectionId);
     }
     handleShowToolbar(show: boolean) {
-        console.log('handleShowToolbar', show);
         this.toolbarShowState = show;
         this.showToolbarAnnouncedSource.next(show);
     }
     handleShowNav(show: boolean) {
-        console.log('handleShowNav', show);
         this.navShowState = show;
         this.showNavAnnouncedSource.next(show);
     }
     handleShowFab(show: boolean) {
-        console.log('handleShowFab', show);
         this.fabShowState = show;
         this.showFabAnnouncedSource.next(show);
     }
     handleWidthMobile(isMobile: boolean) {
-        console.log('handleWidthMobile', isMobile);
         this.mobileWidthState = isMobile;
         this.widthMobileAnnouncedSource.next(isMobile);
     }

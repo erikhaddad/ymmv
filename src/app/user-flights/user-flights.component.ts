@@ -93,7 +93,7 @@ export class UserFlightsComponent implements OnInit {
                 this.userFlights$ = this.dataService.getUserFlights(this.userId);
 
                 this.userFlights$.subscribe(flights => {
-                    console.log('returned flights', flights);
+                    // console.log('returned flights', flights);
 
                     if (flights) {
                         // this.userFlights = _.orderBy(flights, 'timestamp', 'asc');
@@ -104,7 +104,7 @@ export class UserFlightsComponent implements OnInit {
                     } else {
                         this.userFlights = [];
                     }
-                    console.log('user flights', this.userFlights);
+                    // console.log('user flights', this.userFlights);
 
                     this.populateMap();
                 });

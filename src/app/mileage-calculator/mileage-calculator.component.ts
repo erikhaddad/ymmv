@@ -242,7 +242,7 @@ export class MileageCalculatorComponent implements OnInit {
     }
 
     onClick(evt: Event) {
-        console.log('click');
+        // console.log('click');
     }
 
     onMapReady(map) {
@@ -272,6 +272,6 @@ export class MileageCalculatorComponent implements OnInit {
     }
 
     myCallbackFunction(evt: Event) {
-        console.log(evt);
+        // console.log(evt);
     }
 }

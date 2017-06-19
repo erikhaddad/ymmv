@@ -40,6 +40,8 @@
         <h3 md-line>{{ navItem.title }}</h3>
       </a>
       <md-divider></md-divider>
+    </md-nav-list>
+    <md-nav-list fxFlex>
       <a md-list-item
          [routerLink]="['/mileage-calculator']"
          [class.active]="currentPage == 'mileage-calculator'">

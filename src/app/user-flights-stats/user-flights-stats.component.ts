@@ -203,7 +203,7 @@ export class UserFlightsStatsComponent implements OnInit {
                 this.userFlights$ = this.dataService.getUserFlights(this.userId);
 
                 this.userFlights$.subscribe(flights => {
-                    console.log('returned flights', flights);
+                    // console.log('returned flights', flights);
 
                     if (flights) {
                         this.userFlights = _.orderBy(flights, function (flight) {
@@ -212,7 +212,7 @@ export class UserFlightsStatsComponent implements OnInit {
                     } else {
                         this.userFlights = [];
                     }
-                    console.log('user flights', this.userFlights);
+                    // console.log('user flights', this.userFlights);
 
                     this.calculateTotals();
                     this.populateCharts();
@@ -409,17 +409,18 @@ export class UserFlightsStatsComponent implements OnInit {
         this.analysis.ranks.airlineMilesDescending = this.getSortedArrayFromObject(this.analysis.distribution.miles,
                                                                                     'airline', 'miles', true);
 
-        console.log('analysis', this.analysis);
-        console.log('analysis distribution', this.analysis.distribution);
-        console.log('analysis ranks', this.analysis.ranks);
+        // console.log('analysis', this.analysis);
+        // console.log('analysis distribution', this.analysis.distribution);
+        // console.log('analysis ranks', this.analysis.ranks);
 
         this.loaded.analysis = true;
 
-        console.log('sorted segments by miles', this.getSortedArrayFromObjectProp(this.userFlights, 'miles', true));
+        // console.log('sorted segments by miles', this.getSortedArrayFromObjectProp(this.userFlights, 'miles', true));
 
-        console.log('sorted airlines by miles', this.getSortedArrayFromObject(this.analysis.distribution.miles, 'airline', 'miles', true));
+        // console.log('sorted airlines by miles', this.getSortedArrayFromObject(this.analysis.distribution.miles,
+        //                              'airline', 'miles', true));
 
-        console.log('analysis.ranks.segmentMilesDescending[0]', this.analysis.ranks.segmentMilesDescending[0]);
+        // console.log('analysis.ranks.segmentMilesDescending[0]', this.analysis.ranks.segmentMilesDescending[0]);
     }
 
     getSortedArray (arr, reverse) {
@@ -550,10 +551,10 @@ export class UserFlightsStatsComponent implements OnInit {
 
     // events
     public chartClicked(e: any): void {
-        console.log(e);
+        // console.log(e);
     }
 
     public chartHovered(e: any): void {
-        console.log(e);
+        // console.log(e);
     }
 }

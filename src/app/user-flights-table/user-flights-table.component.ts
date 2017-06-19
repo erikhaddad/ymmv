@@ -99,7 +99,7 @@ export class UserFlightsTableComponent implements OnInit, AfterViewInit, OnDestr
                 this.userFlights$ = this.dataService.getUserFlights(this.userId);
 
                 this.userFlights$.subscribe(flights => {
-                    console.log('returned flights', flights);
+                    // console.log('returned flights', flights);
 
                     if (flights) {
                         // this.userFlights = _.orderBy(flights, 'timestamp', 'asc');
@@ -110,7 +110,7 @@ export class UserFlightsTableComponent implements OnInit, AfterViewInit, OnDestr
                     } else {
                         this.userFlights = [];
                     }
-                    console.log('user flights', this.userFlights);
+                    // console.log('user flights', this.userFlights);
                 });
             } else {
                 this.router.navigate(['/home']);
