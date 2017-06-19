@@ -24,6 +24,266 @@
     <!--<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Leckerli+One" />-->
   </head>
   <body>
-    <app-root></app-root>
+    <app-root>
+      <style>
+        .hide-overflow {
+          overflow: hidden;
+        }
+
+        .landing-interactive {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          max-width: 100%;
+          place-content: center;
+          align-items: center;
+          -webkit-box-pack: center;
+          -webkit-box-align: center;
+        }
+
+        .landing-text-container {
+          box-sizing: border-box;
+          flex: 1 1 100%;
+          -webkit-box-flex: 1;
+          display: flex;
+          flex-direction: column;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          place-content: center;
+          align-items: center;
+          -webkit-box-pack: center;
+          -webkit-box-align: center;
+          max-height: 40%;
+        }
+
+        .landing-text {
+          font-family: 'Leckerli One', cursive;
+          font-size: 84px;
+          text-align: center;
+          /*padding-top: 192px;*/
+          margin: 0;
+        }
+
+        #clouds {
+          padding: 0;
+          background: #6DD3E7;
+          background: -webkit-linear-gradient(to bottom, #6DD3E7 20%, #fff 50%);
+          background: linear-gradient(to bottom, #6DD3E7 20%, #fff 50%);
+          background: -moz-linear-gradient(to bottom, #6DD3E7 20%, #fff 50%);
+          height: 100vh;
+        }
+
+        .cloud {
+          width: 250px;
+          height: 60px;
+          background-color: white;
+          border-radius: 200px;
+          position: relative;
+          -moz-box-shadow: 9px -7px 0 0 #f7e7eb inset;
+          -webkit-box-shadow: 9px -7px 0 0 #f7e7eb inset;
+          box-shadow: 9px -7px 0 0 #f7e7eb inset;
+        }
+        .cloud:before {
+          content: '';
+          position: absolute;
+          background-color: white;
+          width: 120px;
+          height: 120px;
+          top: -75px;
+          border-radius: 100px;
+          -moz-border-radius: 100px;
+          -webkit-border-radius: 100px;
+          transform: rotate(30deg);
+          -moz-transform: rotate(30deg);
+          -webkit-transform: rotate(30deg);
+          -moz-box-shadow: 10px 3px 0 0 #f7e7eb inset;
+          -webkit-box-shadow: 10px 3px 0 0 #f7e7eb inset;
+          box-shadow: 10px 3px 0 0 #f7e7eb inset;
+        }
+        .cloud:after {
+          content: '';
+          position: absolute;
+          background-color: white;
+          width: 120px;
+          height: 120px;
+          top: -75px;
+          border-radius: 100px;
+          -moz-border-radius: 100px;
+          -webkit-border-radius: 100px;
+          transform: rotate(30deg);
+          -moz-transform: rotate(30deg);
+          -webkit-transform: rotate(30deg);
+          -moz-box-shadow: 10px 3px 0 0 #f7e7eb inset;
+          -webkit-box-shadow: 10px 3px 0 0 #f7e7eb inset;
+          box-shadow: 10px 3px 0 0 #f7e7eb inset;
+          width: 90px;
+          height: 90px;
+          top: -45px;
+          right: 25px;
+        }
+        .cloud:before {
+          left: 25px;
+        }
+
+        .x1 {
+          top: 150px;
+          -webkit-animation: moveclouds 45s linear infinite;
+          -moz-animation: moveclouds 45s linear infinite;
+          -o-animation: moveclouds 45s linear infinite;
+          animation: moveclouds 45s linear infinite;
+        }
+
+        .x2 {
+          left: 200px;
+          transform: scale(0.6);
+          -webkit-transform: scale(0.6);
+          -moz-transform: scale(0.6);
+          -o-transform: scale(0.6);
+          -webkit-animation: moveclouds 40s linear infinite;
+          -moz-animation: moveclouds 40s linear infinite;
+          -o-animation: moveclouds 40s linear infinite;
+          animation: moveclouds 40s linear infinite;
+        }
+
+        .x3 {
+          left: -250px;
+          transform: scale(0.3);
+          -webkit-transform: scale(0.3);
+          -moz-transform: scale(0.3);
+          -o-transform: scale(0.3);
+          opacity: .8;
+          -webkit-animation: moveclouds 35s linear infinite;
+          -moz-animation: moveclouds 35s linear infinite;
+          -o-animation: moveclouds 35s linear infinite;
+          animation: moveclouds 35s linear infinite;
+        }
+
+        .x4 {
+          left: 300px;
+          transform: scale(0.8);
+          -webkit-transform: scale(0.8);
+          -moz-transform: scale(0.8);
+          -o-transform: scale(0.8);
+          -webkit-animation: moveclouds 48s linear infinite;
+          -moz-animation: moveclouds 48s linear infinite;
+          -o-animation: moveclouds 48s linear infinite;
+          animation: moveclouds 48s linear infinite;
+        }
+
+        .x5 {
+          left: -200px;
+          transform: scale(0.6);
+          -webkit-transform: scale(0.6);
+          -moz-transform: scale(0.6);
+          -o-transform: scale(0.6);
+          -webkit-animation: moveclouds 35s linear infinite;
+          -moz-animation: moveclouds 35s linear infinite;
+          -o-animation: moveclouds 35s linear infinite;
+          animation: moveclouds 35s linear infinite;
+        }
+
+        .x6 {
+          left: 470px;
+          top: -200px;
+          transform: scale(0.2);
+          -webkit-transform: scale(0.2);
+          -moz-transform: scale(0.2);
+          -o-transform: scale(0.2);
+          opacity: 0.7;
+          -webkit-animation: moveclouds 31s linear infinite;
+          -moz-animation: moveclouds 31s linear infinite;
+          -o-animation: moveclouds 31s linear infinite;
+          animation: moveclouds 31s linear infinite;
+        }
+
+        .x7 {
+          left: 20px;
+          top: -175px;
+          transform: scale(0.2);
+          -webkit-transform: scale(0.2);
+          -moz-transform: scale(0.2);
+          -o-transform: scale(0.2);
+          opacity: .7;
+          -webkit-animation: moveclouds 30s linear infinite;
+          -moz-animation: moveclouds 30s linear infinite;
+          -o-animation: moveclouds 30s linear infinite;
+          animation: moveclouds 30s linear infinite;
+        }
+
+        @-webkit-keyframes moveclouds {
+          0% {
+            margin-left: 1200px;
+          }
+          100% {
+            margin-left: -1000px;
+          }
+        }
+        @-moz-keyframes moveclouds {
+          0% {
+            margin-left: 1200px;
+          }
+          100% {
+            margin-left: -1000px;
+          }
+        }
+        @-o-keyframes moveclouds {
+          0% {
+            margin-left: 1200px;
+          }
+          100% {
+            margin-left: -1000px;
+          }
+        }
+        @keyframes moveclouds {
+          0% {
+            margin-left: 1200px;
+          }
+          100% {
+            margin-left: -1000px;
+          }
+        }
+        @media (max-width: 600px) {
+          .landing-text {
+            font-size: 42px;
+          }
+          .welcome-text h2 {
+            font-size: 24px;
+          }
+          .welcome-text .user-name {
+            font-size: 36px;
+          }
+
+          .welcome-action {
+            margin-top: 16px;
+          }
+        }
+      </style>
+
+      <div class="hide-overflow">
+        <div id="clouds">
+          <div class="cloud x1"></div>
+          <div class="cloud x2"></div>
+          <div class="cloud x3"></div>
+          <div class="cloud x4"></div>
+          <div class="cloud x5"></div>
+          <div class="cloud x6"></div>
+          <div class="cloud x7"></div>
+        </div>
+
+        <div class="landing-interactive">
+          <div class="landing-text-container">
+            <h1 class="landing-text">Your Mileage<br/>May Vary</h1>
+          </div>
+        </div>
+      </div>
+    </app-root>
   </body>
 </html>
