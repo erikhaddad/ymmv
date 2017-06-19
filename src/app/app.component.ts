@@ -135,7 +135,7 @@ export class AppComponent {
     }
 
     toggleSidenav(evt: Event) {
-        this.layoutService.handleShowNav(!this.layoutService.navShowState);
+        this.layoutService.handleShowNav(!this.showNav);
     }
 
     openAddFlightDialog(evt: Event) {

@@ -1,8 +1,8 @@
-<main *ngIf="false">
-  {{ analysis | json }}
-</main>
+<div class="empty-state" *ngIf="userFlights.length == 0" fxLayout="column" fxLayoutAlign="center center">
+  <h2>Add some flights to view your stats dashboard!</h2>
+</div>
 
-<div class="page page-dashboard" *ngIf="loaded.analysis">
+<div class="page page-dashboard" *ngIf="userFlights.length > 0">
 
   <div fxLayout="row">
     <div class="panel-box-wrap" fxFlex="100">

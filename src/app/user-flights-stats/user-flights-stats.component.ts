@@ -217,14 +217,15 @@ export class UserFlightsStatsComponent implements OnInit {
                         this.userFlights = _.orderBy(flights, function (flight) {
                             return flight.departure.datetime;
                         });
+
+                        this.calculateTotals();
+                        this.populateCharts();
+                        this.populateMaps();
+
                     } else {
                         this.userFlights = [];
                     }
                     // console.log('user flights', this.userFlights);
-
-                    this.calculateTotals();
-                    this.populateCharts();
-                    this.populateMaps();
                 });
             } else {
                 this.router.navigate(['/home']);

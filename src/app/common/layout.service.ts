@@ -78,6 +78,8 @@ export class LayoutService implements OnDestroy {
 
         this.handleShowToolbar(this.sectionId !== 'home' && this.sectionId !== 'landing');
         this.handleShowNav(this.sectionId !== 'home' && this.sectionId !== 'landing');
+        this.handleShowFab(this.sectionId !== 'home' &&
+            this.sectionId !== 'landing' && this.sectionId !== 'mileage-calculator');
     }
     handleShowToolbar(show: boolean) {
         this.toolbarShowState = show;

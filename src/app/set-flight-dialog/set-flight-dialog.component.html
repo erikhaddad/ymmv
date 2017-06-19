@@ -8,7 +8,7 @@
   <form [formGroup]="setFlightForm" (ngSubmit)="onSubmit($event)" novalidate>
     <div md-dialog-content>
       <!-- ORIGIN-->
-      <div class="inputs-row" fxLayout="row" fxLayoutAlign="center center">
+      <div class="inputs-row" fxLayout="row" fxLayout.lt-md="row" fxLayoutAlign="center center">
         <md-icon>trip_origin</md-icon>
 
         <md-input-container [floatPlaceholder]="'never'">
@@ -24,7 +24,7 @@
           <input mdInput
                  autocomplete="off"
                  [mdDatepicker]="originDatePicker"
-                 placeholder="Choose a date"
+                 placeholder="date"
                  formControlName="originDate" />
           <button mdSuffix [mdDatepickerToggle]="originDatePicker"></button>
           <md-hint align="start">{{ dateFormatHintText }}</md-hint>
@@ -32,7 +32,7 @@
         <md-datepicker #originDatePicker></md-datepicker>
 
         <md-input-container [floatPlaceholder]="'never'">
-          <input mdInput
+          <input mdInput class="input-narrow"
                  type="time"
                  autocomplete="off"
                  formControlName="originTime" />
@@ -41,7 +41,7 @@
       </div>
 
       <!-- DESTINATION -->
-      <div class="inputs-row" fxLayout="row" fxLayoutAlign="center center">
+      <div class="inputs-row" fxLayout="row" fxLayout.lt-md="row" fxLayoutAlign="center center">
         <md-icon>place</md-icon>
 
         <md-input-container [floatPlaceholder]="'never'">
@@ -58,7 +58,7 @@
           <input mdInput
                  autocomplete="off"
                  [mdDatepicker]="destinationDatePicker"
-                 placeholder="Choose a date"
+                 placeholder="date"
                  formControlName="destinationDate" />
           <button mdSuffix [mdDatepickerToggle]="destinationDatePicker"></button>
           <md-hint align="start">{{ dateFormatHintText }}</md-hint>
@@ -66,7 +66,7 @@
         <md-datepicker #destinationDatePicker></md-datepicker>
 
         <md-input-container [floatPlaceholder]="'never'">
-          <input mdInput
+          <input mdInput class="input-narrow"
                  type="time"
                  autocomplete="off"
                  formControlName="destinationTime" />

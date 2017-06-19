@@ -1,4 +1,8 @@
-<md-card class="data-table-card">
+<div class="empty-state" *ngIf="userFlights.length == 0" fxLayout="column" fxLayoutAlign="center center">
+  <h2>Add some flights to view your stats dashboard!</h2>
+</div>
+
+<md-card class="data-table-card" *ngIf="userFlights.length > 0">
   <ng2-md-datatable>
     <ng2-md-datatable-header>
       <ng2-md-datatable-column sortableValue="departure.datetime">Date</ng2-md-datatable-column>

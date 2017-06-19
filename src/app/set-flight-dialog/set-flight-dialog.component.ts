@@ -63,7 +63,7 @@ export class SetFlightDialogComponent implements OnInit {
         this.destinationHintText = '(e.g. JFK)';
         this.airlineHintText = '(e.g. UA)';
         this.dateFormatHintText = 'MM/DD/YYYY';
-        this.timeFormatHintText = 'hh:mm:A';
+        this.timeFormatHintText = 'hh:mm aa';
 
         this.airports = [];
         this.airports$ = dataService.airports;

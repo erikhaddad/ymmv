@@ -30,3 +30,14 @@
     }
   }
 }
+
+
+@media only screen and (max-width: 600px) {
+  .set-flight-dialog {
+    .inputs-row {
+      .input-narrow {
+        width: 64px;
+      }
+    }
+  }
+}

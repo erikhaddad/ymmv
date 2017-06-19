@@ -1,4 +1,8 @@
-<main class="flights-content">
+<div class="empty-state" *ngIf="userFlights.length == 0" fxLayout="column" fxLayoutAlign="center center">
+  <h2>Add some flights to view your stats dashboard!</h2>
+</div>
+
+<main class="flights-content" *ngIf="userFlights.length > 0">
   <md-toolbar color="primary">
     <div fxFlex="33"></div>
     <div fxFlex="33" class="flight-count">{{ userFlights.length }} <span>{{ userFlights.length == 1 ? 'flight' : 'flights' }}</span></div>

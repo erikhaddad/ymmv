@@ -140,3 +140,14 @@
     padding: 12px 24px;
   }
 }
+
+.empty-state {
+  height: 100%;
+
+  h2 {
+    text-align: center;
+    padding: 24px;
+    color: rgba(0,0,0,.54);
+    font-weight: 400;
+  }
+}
