@@ -21,7 +21,8 @@
       "serviceWorker": true,
       "styles": [
         "theme.scss",
-        "styles.scss"
+        "styles.scss",
+        "fonts.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

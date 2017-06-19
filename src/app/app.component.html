@@ -31,7 +31,7 @@
   <md-sidenav #pages class="app-sidenav app-sidenav-left" fxLayout="column"
               mode="{{isMobile ? 'over' : 'side'}}"
               opened="{{showNav}}">
-    <md-nav-list fxFlex *ngIf="authUser">
+    <md-nav-list *ngIf="authUser">
       <a md-list-item
          *ngFor="let navItem of navItems"
          [routerLink]="['/user', authUser.id, navItem.id]"
@@ -41,7 +41,7 @@
       </a>
       <md-divider></md-divider>
     </md-nav-list>
-    <md-nav-list fxFlex>
+    <md-nav-list>
       <a md-list-item
          [routerLink]="['/mileage-calculator']"
          [class.active]="currentPage == 'mileage-calculator'">
