@@ -71,6 +71,7 @@ export class AppComponent {
 
         this.currentPage = 'home';
 
+        /** AUTH **/
         this.authUser = null;
         authService.authState$.subscribe(authUser => {
             if (authUser != null) {
