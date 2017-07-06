@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {MdDialog, MdIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 
@@ -8,7 +8,7 @@ import {AuthService} from './auth/auth.service';
 import {DataService} from './common/data.service';
 import {LayoutService} from './common/layout.service';
 import {SetFlightDialogComponent} from './set-flight-dialog/set-flight-dialog.component';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -17,7 +17,12 @@ import {Router} from '@angular/router';
     encapsulation: ViewEncapsulation.None,
     moduleId: module.id
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+    paramSubscription: any;
+    userId: string;
+    user$: FirebaseObjectObservable<IUser>;
+    user: IUser;
 
     authUser$: FirebaseObjectObservable<IUser>;
     authUser: IUser|null;
@@ -66,6 +71,7 @@ export class AppComponent {
                 public layoutService: LayoutService,
                 public dialog: MdDialog,
                 private router: Router,
+                private route: ActivatedRoute,
                 iconRegistry: MdIconRegistry,
                 sanitizer: DomSanitizer) {
 
@@ -133,6 +139,19 @@ export class AppComponent {
         iconRegistry.addSvgIcon(
             'avatar_anonymous',
             sanitizer.bypassSecurityTrustResourceUrl('assets/icons/avatar_anonymous.svg'));
+    }
+
+    ngOnInit() {
+        this.paramSubscription = this.route.params.subscribe(params => {
+            this.userId = params['userId'];
+
+            this.user$ = this.dataService.getUser(this.userId);
+            this.user$.subscribe(user => {
+                this.user = user;
+
+                this.layoutService.handleShowFab(this.authUser.id === this.user.id);
+            });
+        });
     }
 
     toggleSidenav(evt: Event) {
